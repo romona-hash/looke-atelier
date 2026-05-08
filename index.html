@@ -1005,8 +1005,6 @@ ANALYSIS_TYPES.forEach(t => {
   card.addEventListener("click", () => toggleAnalysis(t.id));
   grid.appendChild(card);
 });
-// Pre-select Full Personal Style Report by default so Generate button works immediately
-toggleAnalysis("full_report");
 function toggleAnalysis(id) {
   const card = grid.querySelector(`[data-id="${id}"]`);
   const tick = card.querySelector(".check-tick");
@@ -1493,6 +1491,8 @@ document.getElementById("premiumBtn").href = STRIPE_LINKS.premium;
 // INIT
 document.getElementById("currentYear").textContent = new Date().getFullYear();
 refreshAuthUI(); renderSwapCounter(); renderHistory();
+// Pre-select Full Personal Style Report by default so Generate button works immediately
+toggleAnalysis("full_report");
 </script>
 </body>
 </html>
