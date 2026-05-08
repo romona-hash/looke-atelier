@@ -3,18 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<meta name="description" content="Looke Atelier — AI Personal Stylist. Try on hairstyles with AI and generate ChatGPT style reports." />
+<meta name="description" content="Looke Atelier — AI Personal Stylist for women & men. AI hairstyle try-on plus comprehensive ChatGPT style reports: facial measurements, color palette, glasses, outfits, accessories, makeup/grooming, and full personal style transformations." />
 <title>Looke Atelier — AI Personal Stylist</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --tiffany: #0ABAB5;
-    --fuchsia: #E91E63;
-    --text-primary: #f0f4f8;
-    --text-muted: rgba(189, 209, 233, 0.75);
-  }
+  :root { --tiffany: #0ABAB5; --fuchsia: #E91E63; --text-primary: #f0f4f8; --text-muted: rgba(189, 209, 233, 0.75); }
   * { -webkit-tap-highlight-color: transparent; }
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -22,168 +17,67 @@
       radial-gradient(ellipse at top left, rgba(10, 186, 181, 0.20) 0%, transparent 50%),
       radial-gradient(ellipse at bottom right, rgba(233, 30, 99, 0.16) 0%, transparent 50%),
       linear-gradient(180deg, #0a1628 0%, #0f1f3a 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: #f0f4f8;
+    background-attachment: fixed; min-height: 100vh; color: #f0f4f8;
   }
-  .glass {
-    background: rgba(20, 40, 70, 0.4);
-    border: 1px solid rgba(10, 186, 181, 0.18);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .card-option {
-    background: rgba(20, 40, 70, 0.45);
-    border: 1.5px solid rgba(10, 186, 181, 0.22);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  .glass { background: rgba(20, 40, 70, 0.4); border: 1px solid rgba(10, 186, 181, 0.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .card-option { background: rgba(20, 40, 70, 0.45); border: 1.5px solid rgba(10, 186, 181, 0.22); transition: all 0.2s; }
   .card-option:hover { border-color: rgba(10, 186, 181, 0.55); background: rgba(20, 40, 70, 0.6); }
-  .card-selected {
-    background: linear-gradient(135deg, rgba(10, 186, 181, 0.22) 0%, rgba(233, 30, 99, 0.18) 100%) !important;
-    border-color: rgba(233, 30, 99, 0.7) !important;
-    box-shadow: 0 0 28px rgba(233, 30, 99, 0.25);
-  }
-  .step-pill {
-    font-size: 0.65rem; letter-spacing: 0.18em; padding: 5px 14px;
-    border-radius: 999px; font-weight: 700; color: white; display: inline-block;
-  }
-  .step-1 { background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); }
-  .step-2 { background: linear-gradient(135deg, #0ABAB5 0%, #14b8a6 100%); }
-  .step-3 { background: linear-gradient(135deg, #E91E63 0%, #EC4899 100%); }
-  .step-4 { background: linear-gradient(135deg, #38bdf8 0%, #0ABAB5 100%); }
-  .step-5 { background: linear-gradient(135deg, #8b5cf6 0%, #E91E63 100%); }
-  .step-tryon { background: linear-gradient(135deg, #c026d3 0%, #E91E63 100%); }
-  .check-circle {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 2px solid rgba(10, 186, 181, 0.4);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; transition: all 0.2s;
-  }
+  .card-selected { background: linear-gradient(135deg, rgba(10, 186, 181, 0.22), rgba(233, 30, 99, 0.18)) !important; border-color: rgba(233, 30, 99, 0.7) !important; box-shadow: 0 0 28px rgba(233, 30, 99, 0.25); }
+  .step-pill { font-size: 0.65rem; letter-spacing: 0.18em; padding: 5px 14px; border-radius: 999px; font-weight: 700; color: white; display: inline-block; }
+  .step-1 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+  .step-tryon { background: linear-gradient(135deg, #c026d3, #E91E63); }
+  .step-2 { background: linear-gradient(135deg, #0ABAB5, #14b8a6); }
+  .step-3 { background: linear-gradient(135deg, #E91E63, #EC4899); }
+  .step-4 { background: linear-gradient(135deg, #38bdf8, #0ABAB5); }
+  .step-5 { background: linear-gradient(135deg, #8b5cf6, #E91E63); }
+  .badge-visual { background: rgba(10, 186, 181, 0.14); border: 1px solid rgba(10, 186, 181, 0.45); color: #5eead4; font-size: 0.62rem; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 4px; font-weight: 600; display: inline-block; }
+  .check-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(10, 186, 181, 0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
   .check-circle.on { background: linear-gradient(135deg, #E91E63, #EC4899); border-color: transparent; }
-  .generate-btn {
-    background: linear-gradient(135deg, #0ABAB5 0%, #E91E63 100%);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(233, 30, 99, 0.4);
-    transition: all 0.2s;
-  }
+  .generate-btn { background: linear-gradient(135deg, #0ABAB5, #E91E63); box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(233, 30, 99, 0.4); transition: all 0.2s; }
   .generate-btn:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 12px 40px rgba(233, 30, 99, 0.55); transform: translateY(-1px); }
-  .generate-btn:active { transform: translateY(0); }
   .generate-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .copy-btn {
-    background: linear-gradient(135deg, #0ABAB5, #E91E63); color: white;
-    font-weight: 600; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem;
-    transition: all 0.15s;
-  }
+  .copy-btn { background: linear-gradient(135deg, #0ABAB5, #E91E63); color: white; font-weight: 600; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; transition: all 0.15s; }
   .copy-btn:hover { transform: scale(1.04); }
   .copy-btn.copied { background: linear-gradient(135deg, #0ABAB5, #14b8a6); }
-  .dropzone {
-    background: rgba(20, 40, 70, 0.35);
-    border: 2px dashed rgba(10, 186, 181, 0.45);
-    transition: all 0.2s;
-  }
-  .dropzone:hover, .dropzone.dragging {
-    border-color: rgba(233, 30, 99, 0.7); background: rgba(20, 40, 70, 0.55);
-  }
-  .pricing-card {
-    background: rgba(20, 40, 70, 0.45); border: 1.5px solid rgba(10, 186, 181, 0.25);
-    transition: all 0.2s;
-  }
+  .dropzone { background: rgba(20, 40, 70, 0.35); border: 2px dashed rgba(10, 186, 181, 0.45); transition: all 0.2s; }
+  .dropzone:hover, .dropzone.dragging { border-color: rgba(233, 30, 99, 0.7); background: rgba(20, 40, 70, 0.55); }
+  .dropzone-after { border-color: rgba(139, 92, 246, 0.5); }
+  .dropzone-after:hover, .dropzone-after.dragging { border-color: rgba(139, 92, 246, 0.85); }
+  .pricing-card { background: rgba(20, 40, 70, 0.45); border: 1.5px solid rgba(10, 186, 181, 0.25); transition: all 0.2s; }
   .pricing-card:hover { border-color: rgba(233, 30, 99, 0.5); }
-  .pricing-card.featured {
-    background: linear-gradient(180deg, rgba(10, 186, 181, 0.18) 0%, rgba(233, 30, 99, 0.14) 100%);
-    border-color: rgba(233, 30, 99, 0.6); box-shadow: 0 8px 40px rgba(233, 30, 99, 0.2);
-  }
-  .vibe-chip {
-    background: rgba(20, 40, 70, 0.55); border: 1.5px solid rgba(10, 186, 181, 0.32);
-    padding: 8px 16px; border-radius: 999px; font-size: 0.85rem;
-    font-weight: 500; cursor: pointer; transition: all 0.15s; user-select: none;
-    color: #f0f4f8;
-  }
+  .pricing-card.featured { background: linear-gradient(180deg, rgba(10, 186, 181, 0.18), rgba(233, 30, 99, 0.14)); border-color: rgba(233, 30, 99, 0.6); box-shadow: 0 8px 40px rgba(233, 30, 99, 0.2); }
+  .vibe-chip { background: rgba(20, 40, 70, 0.55); border: 1.5px solid rgba(10, 186, 181, 0.32); padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.15s; user-select: none; color: #f0f4f8; }
   .vibe-chip:hover { border-color: rgba(233, 30, 99, 0.6); }
-  .vibe-chip.on {
-    background: linear-gradient(135deg, rgba(10, 186, 181, 0.4), rgba(233, 30, 99, 0.3));
-    border-color: rgba(233, 30, 99, 0.8);
-  }
-  select, input[type="text"], input[type="email"], input[type="password"] {
-    background: rgba(10, 22, 40, 0.6); border: 1.5px solid rgba(10, 186, 181, 0.28);
-    color: #f0f4f8; padding: 10px 14px; border-radius: 10px; width: 100%;
-    font-size: 0.9rem; transition: all 0.15s;
-  }
-  select:focus, input:focus {
-    outline: none; border-color: rgba(233, 30, 99, 0.65);
-    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.15);
-  }
-  .prompt-output {
-    background: rgba(10, 22, 40, 0.7); border: 1px solid rgba(10, 186, 181, 0.22);
-    border-radius: 12px; padding: 16px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-    font-size: 0.78rem; line-height: 1.55; white-space: pre-wrap;
-    max-height: 280px; overflow-y: auto; color: #cfe5f5;
-  }
-  .modal-bg {
-    background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  }
+  .vibe-chip.on { background: linear-gradient(135deg, rgba(10, 186, 181, 0.4), rgba(233, 30, 99, 0.3)); border-color: rgba(233, 30, 99, 0.8); }
+  select, input[type="text"], input[type="email"], input[type="password"] { background: rgba(10, 22, 40, 0.6); border: 1.5px solid rgba(10, 186, 181, 0.28); color: #f0f4f8; padding: 10px 14px; border-radius: 10px; width: 100%; font-size: 0.9rem; }
+  select:focus, input:focus { outline: none; border-color: rgba(233, 30, 99, 0.65); box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.15); }
+  .prompt-output { background: rgba(10, 22, 40, 0.7); border: 1px solid rgba(10, 186, 181, 0.22); border-radius: 12px; padding: 16px; font-family: ui-monospace, Menlo, monospace; font-size: 0.78rem; line-height: 1.55; white-space: pre-wrap; max-height: 280px; overflow-y: auto; color: #cfe5f5; }
+  .prompt-output::-webkit-scrollbar { width: 6px; }
+  .prompt-output::-webkit-scrollbar-thumb { background: rgba(10, 186, 181, 0.35); border-radius: 3px; }
+  .modal-bg { background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .animate-in { animation: fadeUp 0.3s ease-out; }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-  .shimmer-loading {
-    background: linear-gradient(90deg, rgba(10, 186, 181, 0.1) 0%, rgba(233, 30, 99, 0.25) 50%, rgba(10, 186, 181, 0.1) 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s linear infinite;
-  }
-  .avatar {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: linear-gradient(135deg, #0ABAB5, #E91E63);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; color: white; font-size: 0.85rem;
-    cursor: pointer; flex-shrink: 0;
-  }
-
-  /* Hairstyle thumbnail grid */
-  .hairstyle-card {
-    background: rgba(20, 40, 70, 0.55); border: 1.5px solid rgba(10, 186, 181, 0.3);
-    border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.15s;
-    position: relative; overflow: hidden;
-  }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  .shimmer-loading { background: linear-gradient(90deg, rgba(10, 186, 181, 0.1), rgba(233, 30, 99, 0.25), rgba(10, 186, 181, 0.1)); background-size: 200% 100%; animation: shimmer 2s linear infinite; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #0ABAB5, #E91E63); display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 0.85rem; cursor: pointer; flex-shrink: 0; }
+  .hairstyle-card { background: rgba(20, 40, 70, 0.55); border: 1.5px solid rgba(10, 186, 181, 0.3); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.15s; }
   .hairstyle-card:hover { border-color: rgba(10, 186, 181, 0.7); transform: translateY(-1px); }
-  .hairstyle-card.on {
-    background: linear-gradient(135deg, rgba(10, 186, 181, 0.25), rgba(233, 30, 99, 0.2));
-    border-color: rgba(233, 30, 99, 0.85);
-    box-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
-  }
-  .reveal-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    background: linear-gradient(135deg, #0ABAB5, #E91E63);
-    padding: 2px; border-radius: 16px;
-  }
-  .reveal-half {
-    background: rgba(10, 22, 40, 0.95); border-radius: 14px; overflow: hidden;
-    aspect-ratio: 3/4; position: relative;
-  }
+  .hairstyle-card.on { background: linear-gradient(135deg, rgba(10, 186, 181, 0.25), rgba(233, 30, 99, 0.2)); border-color: rgba(233, 30, 99, 0.85); box-shadow: 0 0 20px rgba(233, 30, 99, 0.3); }
+  .reveal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: linear-gradient(135deg, #0ABAB5, #E91E63); padding: 2px; border-radius: 16px; }
+  .reveal-half { background: rgba(10, 22, 40, 0.95); border-radius: 14px; overflow: hidden; aspect-ratio: 3/4; position: relative; }
   .reveal-half img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .reveal-label {
-    position: absolute; top: 12px; left: 12px;
-    background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(6px);
-    padding: 4px 10px; border-radius: 999px;
-    font-size: 0.65rem; letter-spacing: 0.18em; font-weight: 700; color: white;
-  }
+  .reveal-label { position: absolute; top: 12px; left: 12px; background: rgba(10, 22, 40, 0.85); padding: 4px 10px; border-radius: 999px; font-size: 0.65rem; letter-spacing: 0.18em; font-weight: 700; color: white; }
   .reveal-label.before { background: linear-gradient(135deg, #f59e0b, #ef4444); }
-  .reveal-label.after  { background: linear-gradient(135deg, #c026d3, #E91E63); }
-
+  .reveal-label.after { background: linear-gradient(135deg, #c026d3, #E91E63); }
+  .mock-screen { background: #1a1a1a; border: 1px solid rgba(10, 186, 181, 0.28); border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; }
   @media (min-width: 1024px) {
-    .desktop-grid {
-      display: grid; grid-template-columns: 1fr 280px;
-      gap: 28px; align-items: start;
-    }
+    .desktop-grid { display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
     .sidebar-sticky { position: sticky; top: 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <nav class="sticky top-0 z-30 px-4 py-3 lg:px-6" style="background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(10, 186, 181, 0.18);">
   <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
     <a href="#" class="font-black text-lg tracking-tight bg-clip-text text-transparent" style="background-image: linear-gradient(135deg, #f0f4f8, #5eead4 50%, #f0abfc);">Looke Atelier</a>
@@ -198,21 +92,15 @@
   <div class="desktop-grid">
     <main>
 
-  <!-- HEADER -->
   <header class="text-center mb-8 sm:mb-12">
     <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full glass">
       <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-      <span class="text-xs" style="color: #cce8ec;">AI Personal Stylist · Powered by ChatGPT &amp; Flux</span>
+      <span class="text-xs" style="color: #cce8ec;">AI Personal Stylist · Women &amp; Men</span>
     </div>
-    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-3 bg-clip-text text-transparent" style="background-image: linear-gradient(135deg, #f0f4f8 0%, #5eead4 50%, #f0abfc 100%); font-family: 'Playfair Display', serif;">
-      Looke Atelier
-    </h1>
-    <p class="text-sm sm:text-base max-w-md mx-auto" style="color: var(--text-muted);">
-      Upload a portrait. Generate a ChatGPT prompt — or try on a new hairstyle with AI.
-    </p>
+    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-3 bg-clip-text text-transparent" style="background-image: linear-gradient(135deg, #f0f4f8 0%, #5eead4 50%, #f0abfc 100%); font-family: 'Playfair Display', serif;">Looke Atelier</h1>
+    <p class="text-sm sm:text-base max-w-md mx-auto" style="color: var(--text-muted);">Try on hairstyles with AI — and generate complete ChatGPT style reports covering color, outfits, glasses, accessories &amp; more.</p>
   </header>
 
-  <!-- STEP 1: UPLOAD -->
   <section class="glass rounded-2xl p-5 sm:p-6 mb-5">
     <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
       <div class="flex items-center gap-3">
@@ -220,13 +108,10 @@
         <h2 class="text-lg sm:text-xl font-bold">Upload Your Photo</h2>
       </div>
     </div>
-
     <div id="dropzone" class="dropzone rounded-xl p-6 sm:p-8 text-center cursor-pointer relative">
       <div id="dropzoneEmpty">
         <div class="inline-flex w-14 h-14 mb-3 rounded-xl items-center justify-center" style="background: rgba(10, 186, 181, 0.18);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5L5 22"/>
-          </svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5L5 22"/></svg>
         </div>
         <p class="font-semibold text-base mb-1">Click or drag &amp; drop your photo</p>
         <p class="text-xs" style="color: var(--text-muted);">JPG · PNG · WEBP · Max 5MB</p>
@@ -234,7 +119,7 @@
       </div>
       <div id="dropzoneFilled" class="hidden">
         <div class="flex items-center gap-4">
-          <img id="photoPreview" class="w-20 h-20 rounded-xl object-cover" style="border: 2px solid rgba(10, 186, 181, 0.5);" alt="Your portrait" />
+          <img id="photoPreview" class="w-20 h-20 rounded-xl object-cover" style="border: 2px solid rgba(10, 186, 181, 0.5);" alt="" />
           <div class="text-left flex-1 min-w-0">
             <p class="font-semibold text-sm truncate" id="photoName">photo.jpg</p>
             <p class="text-xs" id="photoSize" style="color: var(--text-muted);">—</p>
@@ -247,9 +132,6 @@
     <p id="uploadError" class="hidden mt-3 text-sm text-red-300"></p>
   </section>
 
-  <!-- ============================================================
-       AI HAIRSTYLE TRY-ON — the new feature
-  ============================================================ -->
   <section class="glass rounded-2xl p-5 sm:p-6 mb-5" style="border: 1px solid rgba(192, 38, 211, 0.35); background: linear-gradient(180deg, rgba(192, 38, 211, 0.08), rgba(233, 30, 99, 0.04));">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <div class="flex items-center gap-3">
@@ -258,134 +140,239 @@
       </div>
       <span id="swapCounter" class="text-xs" style="color: #f0abfc;"></span>
     </div>
-    <p class="text-sm mb-5" style="color: var(--text-muted);">
-      Upload your photo above, pick a style below, and our AI will show you wearing it. Takes about 30 seconds per try-on.
-    </p>
-
+    <p class="text-sm mb-5" style="color: var(--text-muted);">Pick a style — our AI shows you wearing it on your actual photo. ~30 seconds.</p>
     <div class="flex items-baseline justify-between mb-3">
       <h3 class="text-sm font-semibold tracking-wider" style="color: #f0abfc;">CHOOSE A STYLE</h3>
       <p class="text-xs" style="color: var(--text-muted);">Tap to try it on</p>
     </div>
-
     <div id="hairstyleGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5"></div>
-
-    <button id="tryOnBtn" class="generate-btn w-full py-3.5 rounded-xl font-bold text-white disabled:opacity-40">
-      ✨ Generate My Try-On
-    </button>
+    <button id="tryOnBtn" class="generate-btn w-full py-3.5 rounded-xl font-bold text-white disabled:opacity-40">✨ Generate My Try-On</button>
     <p id="tryOnHint" class="text-center text-xs mt-2" style="color: var(--text-muted);">Upload a photo and pick a hairstyle</p>
-
-    <!-- Loading state -->
     <div id="tryOnLoading" class="hidden mt-5 p-5 rounded-xl text-center shimmer-loading">
-      <div class="inline-block animate-spin w-8 h-8 mb-3 border-3 border-white/30 border-t-white rounded-full"></div>
+      <div class="inline-block animate-spin w-8 h-8 mb-3 border-4 border-white/30 border-t-white rounded-full"></div>
       <p class="font-semibold">Generating your new look…</p>
       <p class="text-xs mt-1" style="color: var(--text-muted);" id="loadingNote">This usually takes 20–45 seconds.</p>
     </div>
-
-    <!-- Error state -->
     <div id="tryOnError" class="hidden mt-5 p-4 rounded-xl text-sm" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5;">
       <p id="tryOnErrorMsg"></p>
       <button id="tryOnRetry" class="mt-2 text-xs underline" style="color: #fca5a5;">Try again (no charge)</button>
     </div>
-
-    <!-- Result reveal -->
     <div id="tryOnReveal" class="hidden mt-5 animate-in">
       <div class="reveal-grid mb-3">
-        <div class="reveal-half">
-          <span class="reveal-label before">BEFORE</span>
-          <img id="revealBefore" alt="Before" />
-        </div>
-        <div class="reveal-half">
-          <span class="reveal-label after">AFTER</span>
-          <img id="revealAfter" alt="After" />
-        </div>
+        <div class="reveal-half"><span class="reveal-label before">BEFORE</span><img id="revealBefore" alt="" /></div>
+        <div class="reveal-half"><span class="reveal-label after">AFTER</span><img id="revealAfter" alt="" /></div>
       </div>
       <p id="resultCaption" class="text-center text-sm mb-3" style="color: #f0abfc;"></p>
       <div class="flex flex-wrap gap-2 justify-center">
-        <button id="downloadResultBtn" class="px-4 py-2 rounded-xl text-xs font-semibold" style="border: 1.5px solid rgba(10, 186, 181, 0.5); color: #5eead4;">
-          ⬇ Download
-        </button>
-        <button id="saveResultBtn" class="generate-btn px-4 py-2 rounded-xl text-xs font-bold text-white">
-          💾 Save to history
-        </button>
-        <button id="regenerateBtn" class="px-4 py-2 rounded-xl text-xs font-semibold" style="border: 1.5px solid rgba(192, 38, 211, 0.5); color: #f0abfc;">
-          🔄 Try a different style
-        </button>
+        <button id="downloadResultBtn" class="px-4 py-2 rounded-xl text-xs font-semibold" style="border: 1.5px solid rgba(10, 186, 181, 0.5); color: #5eead4;">⬇ Download</button>
+        <button id="saveResultBtn" class="generate-btn px-4 py-2 rounded-xl text-xs font-bold text-white">💾 Save to history</button>
+        <button id="regenerateBtn" class="px-4 py-2 rounded-xl text-xs font-semibold" style="border: 1.5px solid rgba(192, 38, 211, 0.5); color: #f0abfc;">🔄 Try a different style</button>
       </div>
       <p id="saveNote" class="hidden text-center text-xs mt-3 italic"></p>
     </div>
   </section>
 
-  <!-- HISTORY -->
+  <section class="glass rounded-2xl p-5 sm:p-6 mb-5">
+    <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+      <div class="flex items-center gap-3">
+        <span class="step-pill step-2">STEP 2</span>
+        <h2 class="text-lg sm:text-xl font-bold">Choose Style Analyses</h2>
+      </div>
+      <span id="selectedCount" class="step-pill step-2 hidden">0 selected</span>
+    </div>
+    <p class="text-sm mb-4" style="color: var(--text-muted);">Pick the analyses you want. We'll generate ChatGPT prompts for each — paste them into ChatGPT with your photo for detailed editorial reports and AI-styled images.</p>
+    <div id="analysisGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+  </section>
+
+  <section class="glass rounded-2xl p-5 sm:p-6 mb-5">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="step-pill step-3">STEP 3</span>
+      <h2 class="text-lg sm:text-xl font-bold">Style Preferences</h2>
+      <span class="text-xs" style="color: var(--text-muted);">Optional</span>
+    </div>
+    <div class="mb-5">
+      <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #fcd34d;">✨ OVERALL VIBE DIRECTION</label>
+      <div id="vibeChips" class="flex flex-wrap gap-2"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div>
+        <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">PRICE TIER</label>
+        <select id="priceTier">
+          <option value="No preference">No preference</option>
+          <option value="Budget-conscious">Budget-conscious</option>
+          <option value="Accessible mid-range">Accessible mid-range</option>
+          <option value="Premium / department-store luxury">Premium</option>
+          <option value="Designer / no ceiling">Designer · no ceiling</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">LANGUAGE</label>
+        <select id="language">
+          <option>English</option><option>Spanish</option><option>French</option>
+          <option>Italian</option><option>Portuguese</option><option>German</option>
+          <option>Japanese</option><option>Korean</option><option>Mandarin Chinese</option><option>Arabic</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">TONE</label>
+        <select id="tone">
+          <option>Professional &amp; Warm</option><option>Editorial &amp; Refined</option>
+          <option>Playful &amp; Encouraging</option><option>Direct &amp; Practical</option>
+          <option>Luxurious &amp; Aspirational</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="step-pill step-4">STEP 4</span>
+      <h2 class="text-lg sm:text-xl font-bold">Visual Effect Options</h2>
+    </div>
+    <div class="mb-4">
+      <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">🖼️ EFFECT IMAGE LAYOUT</label>
+      <div class="flex flex-wrap gap-2">
+        <button class="layout-btn vibe-chip on" data-layout="Editorial Collage">Editorial Collage</button>
+        <button class="layout-btn vibe-chip" data-layout="Before/After">Before / After</button>
+        <button class="layout-btn vibe-chip" data-layout="3-Panel Grid">3-Panel Grid</button>
+        <button class="layout-btn vibe-chip" data-layout="Single Image">Single Image</button>
+      </div>
+      <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">"Editorial Collage" = full transformation board with side-panel guides (like the Romona / male executive examples)</p>
+    </div>
+    <div class="mb-4">
+      <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">🎨 PREFERRED CLOTHING COLORS (max 4)</label>
+      <input id="clothingColors" type="text" placeholder="e.g. Navy, Beige, White, Olive — or leave blank" />
+    </div>
+    <div>
+      <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">👤 YOUR NAME (optional — personalizes the prompt)</label>
+      <input id="userName" type="text" placeholder="e.g. Sarah or Marcus" />
+    </div>
+  </section>
+
+  <button id="generateBtn" class="generate-btn w-full py-4 sm:py-5 rounded-2xl font-bold text-white text-base sm:text-lg mb-4 disabled:opacity-40">✨ Generate ChatGPT Prompts</button>
+  <p id="generateHint" class="text-center text-xs mb-8" style="color: var(--text-muted);">Upload a photo and select at least one analysis</p>
+
+  <section id="outputSection" class="hidden mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <h3 class="text-sm font-semibold tracking-wider" style="color: #f9a8d4;">YOUR GENERATED PROMPTS</h3>
+    </div>
+    <div id="promptsContainer" class="space-y-4"></div>
+  </section>
+
+  <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+    <div class="flex items-center gap-2 mb-1"><span class="text-lg">🚀</span><h3 class="text-base sm:text-lg font-bold tracking-wide">WHAT HAPPENS NEXT IN CHATGPT</h3></div>
+    <p class="text-sm mb-5" style="color: var(--text-muted);">After you copy a prompt, here's exactly what to do.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="space-y-3"><div class="mock-screen relative">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
+          <rect width="200" height="20" fill="#0a0a0a"/><circle cx="9" cy="10" r="2.5" fill="#19c37d"/>
+          <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
+          <rect x="0" y="20" width="200" height="105" fill="#212121"/>
+          <text x="100" y="72" text-anchor="middle" fill="#5a5a6a" font-size="7" font-family="Inter" font-style="italic">Ready when you are.</text>
+          <rect x="14" y="105" width="172" height="32" rx="16" fill="#2f2f2f"/>
+          <circle cx="28" cy="121" r="11" fill="rgba(233,30,99,0.22)" stroke="#E91E63" stroke-width="1"/>
+          <text x="44" y="124" fill="#6e6e80" font-size="7" font-family="Inter">Message ChatGPT…</text>
+          <text x="28" y="148" text-anchor="middle" fill="#E91E63" font-size="5.5" font-family="Inter" font-weight="700">CLICK 📎</text>
+        </svg></div>
+        <div><h4 class="font-bold text-sm">1 · Open ChatGPT</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Click the paperclip 📎 to attach your photo.</p></div>
+      </div>
+      <div class="space-y-3"><div class="mock-screen relative">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
+          <rect width="200" height="20" fill="#0a0a0a"/>
+          <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
+          <rect x="0" y="20" width="200" height="80" fill="#212121"/>
+          <rect x="14" y="32" width="28" height="32" rx="3" fill="#3a3a4a"/>
+          <circle cx="22" cy="44" r="4" fill="#5a5a6a"/>
+          <rect x="48" y="34" width="138" height="2" rx="1" fill="#ececf1" opacity="0.85"/>
+          <rect x="48" y="40" width="130" height="2" rx="1" fill="#c9c9d4" opacity="0.7"/>
+          <rect x="48" y="46" width="138" height="2" rx="1" fill="#c9c9d4" opacity="0.7"/>
+          <rect x="48" y="52" width="118" height="2" rx="1" fill="#c9c9d4" opacity="0.7"/>
+          <rect x="14" y="105" width="172" height="32" rx="16" fill="#2f2f2f"/>
+          <circle cx="172" cy="121" r="8" fill="#E91E63"/>
+          <path d="M168 121 L176 121 M173 118 L176 121 L173 124" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          <text x="172" y="148" text-anchor="middle" fill="#E91E63" font-size="5.5" font-family="Inter" font-weight="700">SEND</text>
+        </svg></div>
+        <div><h4 class="font-bold text-sm">2 · Upload + Paste</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Pick your photo, paste the copied prompt, hit <strong>Send</strong>.</p></div>
+      </div>
+      <div class="space-y-3"><div class="mock-screen relative">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
+          <rect width="200" height="20" fill="#0a0a0a"/>
+          <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
+          <rect x="0" y="20" width="200" height="130" fill="#212121"/>
+          <rect x="14" y="32" width="172" height="100" rx="6" fill="#fafafa"/>
+          <rect x="22" y="42" width="56" height="80" rx="4" fill="#dde9f2"/>
+          <circle cx="50" cy="62" r="10" fill="#a8c5e0"/>
+          <ellipse cx="50" cy="100" rx="18" ry="20" fill="#a8c5e0"/>
+          <text x="86" y="44" fill="#0a1628" font-size="5.5" font-family="Inter" font-weight="700">STYLE REPORT</text>
+          <line x1="86" y1="47" x2="178" y2="47" stroke="#0a1628" stroke-width="0.4"/>
+          <text x="86" y="56" fill="#3a3a5e" font-size="4">Color Palette</text>
+          <text x="86" y="63" fill="#3a3a5e" font-size="4">Outfit Guide</text>
+          <text x="86" y="70" fill="#3a3a5e" font-size="4">Glasses Guide</text>
+          <text x="86" y="77" fill="#3a3a5e" font-size="4">Accessories</text>
+          <text x="86" y="97" fill="#0a1628" font-size="4.5" font-weight="700">YOUR PALETTE</text>
+          <rect x="86"  y="102" width="10" height="10" rx="1" fill="#0a1628"/>
+          <rect x="100" y="102" width="10" height="10" rx="1" fill="#0ABAB5"/>
+          <rect x="114" y="102" width="10" height="10" rx="1" fill="#c9a880"/>
+          <rect x="128" y="102" width="10" height="10" rx="1" fill="#e8dcc4"/>
+          <rect x="142" y="102" width="10" height="10" rx="1" fill="#E91E63"/>
+          <text x="86" y="125" fill="#0ABAB5" font-size="4" font-style="italic">Your Style Report ✨</text>
+        </svg></div>
+        <div><h4 class="font-bold text-sm">3 · Get your report</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Within ~30 seconds, ChatGPT delivers your editorial-quality analysis.</p></div>
+      </div>
+    </div>
+    <a id="openChatGPT" href="https://chatgpt.com" target="_blank" rel="noopener" class="generate-btn block text-center w-full sm:w-auto sm:inline-block mt-6 px-8 py-3 rounded-xl font-bold text-white">Open ChatGPT now →</a>
+    <p class="text-xs mt-3 italic" style="color: var(--text-muted);">Also works with <a href="https://claude.ai" target="_blank" rel="noopener" class="underline" style="color: #5eead4;">Claude</a> and <a href="https://gemini.google.com" target="_blank" rel="noopener" class="underline" style="color: #5eead4;">Gemini</a>.</p>
+  </section>
+
+  <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+    <div class="flex items-center gap-3 mb-3 flex-wrap">
+      <span class="step-pill step-5">STEP 5</span>
+      <h2 class="text-lg sm:text-xl font-bold">Upload Your ChatGPT Result</h2>
+    </div>
+    <p class="text-sm mb-5" style="color: var(--text-muted);">Save the styled image ChatGPT generated for you, then drop it here for a Before / After reveal you can save to your history.</p>
+    <div id="afterDropzone" class="dropzone dropzone-after rounded-xl p-6 sm:p-8 text-center cursor-pointer relative">
+      <div id="afterDropzoneEmpty">
+        <div class="inline-flex w-14 h-14 mb-3 rounded-xl items-center justify-center" style="background: rgba(139, 92, 246, 0.18);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8m0 0l-3-3m3 3l3-3"/><path d="M3 16v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
+        </div>
+        <p class="font-semibold text-base mb-1">Drop your AI-styled image here</p>
+        <p class="text-xs" style="color: var(--text-muted);">JPG · PNG · WEBP · Max 5MB</p>
+        <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">📷 Right-click any image in ChatGPT → "Save image as…"</p>
+      </div>
+      <div id="afterDropzoneFilled" class="hidden">
+        <p class="font-semibold text-sm mb-1" id="afterPhotoName">styled-result.png</p>
+        <button id="changeAfterPhoto" class="text-xs underline" style="color: #f9a8d4;">Replace</button>
+      </div>
+      <input id="afterFileInput" type="file" accept="image/*" class="hidden" />
+    </div>
+    <p id="afterError" class="hidden mt-3 text-sm text-red-300"></p>
+    <div id="cgRevealSection" class="hidden mt-6 animate-in">
+      <div class="reveal-grid mb-4">
+        <div class="reveal-half"><span class="reveal-label before">BEFORE</span><img id="cgRevealBefore" alt="" /></div>
+        <div class="reveal-half"><span class="reveal-label after">AFTER</span><img id="cgRevealAfter" alt="" /></div>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <button id="saveCgHistoryBtn" class="generate-btn px-5 py-2.5 rounded-xl text-sm font-bold text-white">💾 Save to my style history</button>
+        <button id="downloadCgComboBtn" class="px-5 py-2.5 rounded-xl text-sm font-bold" style="border: 1.5px solid rgba(10, 186, 181, 0.5); color: #5eead4;">⬇ Download as side-by-side</button>
+      </div>
+      <p id="cgHistoryNote" class="hidden text-center text-xs mt-2 italic" style="color: #5eead4;"></p>
+    </div>
+  </section>
+
   <section id="historySection" class="hidden glass rounded-2xl p-5 sm:p-6 mb-6">
     <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-      <div class="flex items-center gap-2">
-        <span class="text-lg">📚</span>
-        <h3 class="text-base sm:text-lg font-bold tracking-wide">Your Try-On History</h3>
-      </div>
+      <div class="flex items-center gap-2"><span class="text-lg">📚</span><h3 class="text-base sm:text-lg font-bold tracking-wide">Your Style History</h3></div>
       <span id="historyCount" class="text-xs" style="color: var(--text-muted);">0 looks</span>
     </div>
     <div id="historyGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
   </section>
 
-  <!-- ============================================================
-       OPTIONAL: ChatGPT prompt generator (kept for users who want it)
-  ============================================================ -->
-  <details class="mb-6">
-    <summary class="cursor-pointer glass rounded-2xl p-5 sm:p-6 list-none flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="step-pill step-2">BONUS</span>
-        <h2 class="text-base sm:text-lg font-bold">Also: Generate a ChatGPT prompt</h2>
-      </div>
-      <span class="text-xs" style="color: var(--text-muted);">Click to expand ▾</span>
-    </summary>
-
-    <div class="glass rounded-2xl p-5 sm:p-6 mt-2">
-      <p class="text-sm mb-5" style="color: var(--text-muted);">
-        Want a deep-dive style report (color analysis, glasses guide, full report)? Generate a polished prompt to paste into ChatGPT with your photo.
-      </p>
-
-      <div class="mb-5">
-        <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">CHOOSE ANALYSIS TYPES</label>
-        <div id="analysisGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        <div>
-          <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">LANGUAGE</label>
-          <select id="language">
-            <option>English</option><option>Spanish</option><option>French</option>
-            <option>Italian</option><option>Portuguese</option><option>German</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">TONE</label>
-          <select id="tone">
-            <option>Professional &amp; Warm</option>
-            <option>Editorial &amp; Refined</option>
-            <option>Direct &amp; Practical</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold tracking-wider mb-2" style="color: var(--text-muted);">YOUR NAME</label>
-          <input id="userName" type="text" placeholder="e.g. Sarah" />
-        </div>
-      </div>
-
-      <button id="generatePromptBtn" class="generate-btn w-full py-3 rounded-xl font-bold text-white disabled:opacity-40">
-        Generate ChatGPT Prompt
-      </button>
-
-      <div id="promptOutputSection" class="hidden mt-5"></div>
-    </div>
-  </details>
-
-  <!-- PRICING -->
   <section class="mb-8" id="pricing">
     <div class="text-center mb-6">
-      <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-2" style="font-family: 'Playfair Display', serif;">Pricing</h3>
-      <p class="text-sm" style="color: var(--text-muted);">Try AI hairstyle swaps on yourself — start free.</p>
+      <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-2" style="font-family: 'Playfair Display', serif;">Simple, fair pricing</h3>
+      <p class="text-sm" style="color: var(--text-muted);">Try AI hairstyle swaps and unlock professional style reports.</p>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="pricing-card rounded-2xl p-5">
         <div class="text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">FREE</div>
@@ -395,9 +382,8 @@
           <li class="flex items-center gap-2"><span style="color: #5eead4;">✓</span> All ChatGPT prompts</li>
           <li class="flex items-center gap-2"><span style="color: #5eead4;">✓</span> Save your history</li>
         </ul>
-        <button class="w-full py-2.5 rounded-xl font-semibold text-sm transition" style="border: 1px solid rgba(10, 186, 181, 0.4); color: #5eead4; background: transparent;">Current plan</button>
+        <button class="w-full py-2.5 rounded-xl font-semibold text-sm" style="border: 1px solid rgba(10, 186, 181, 0.4); color: #5eead4; background: transparent;">Current plan</button>
       </div>
-
       <div class="pricing-card featured rounded-2xl p-5 relative">
         <div class="absolute -top-3 left-1/2 -translate-x-1/2 step-pill step-3">MOST POPULAR</div>
         <div class="text-xs font-semibold tracking-wider mb-1" style="color: #f9a8d4;">PRO</div>
@@ -409,7 +395,6 @@
         </ul>
         <a id="proBtn" href="#" target="_blank" rel="noopener" class="generate-btn block text-center w-full py-2.5 rounded-xl font-semibold text-sm">Upgrade to Pro</a>
       </div>
-
       <div class="pricing-card rounded-2xl p-5">
         <div class="text-xs font-semibold tracking-wider mb-1" style="color: #5eead4;">PREMIUM</div>
         <div class="flex items-baseline mb-3"><span class="text-3xl font-black">$19.99</span><span class="text-sm ml-1" style="color: var(--text-muted);">/mo</span></div>
@@ -418,7 +403,7 @@
           <li class="flex items-center gap-2"><span style="color: #5eead4;">✓</span> All ChatGPT prompts</li>
           <li class="flex items-center gap-2"><span style="color: #5eead4;">✓</span> Early access to new features</li>
         </ul>
-        <a id="premiumBtn" href="#" target="_blank" rel="noopener" class="block text-center w-full py-2.5 rounded-xl font-semibold text-sm transition" style="border: 2px solid rgba(10, 186, 181, 0.45); color: #5eead4;">Upgrade to Premium</a>
+        <a id="premiumBtn" href="#" target="_blank" rel="noopener" class="block text-center w-full py-2.5 rounded-xl font-semibold text-sm" style="border: 2px solid rgba(10, 186, 181, 0.45); color: #5eead4;">Upgrade to Premium</a>
       </div>
     </div>
     <p class="text-center text-xs mt-4" style="color: var(--text-muted);">Secure checkout via Stripe. Cancel anytime.</p>
@@ -427,92 +412,64 @@
   <footer class="text-center text-xs pt-6 pb-4 border-t" style="color: rgba(189, 209, 233, 0.4); border-color: rgba(10, 186, 181, 0.12);">
     <p>Looke Atelier © <span id="currentYear"></span> · AI Personal Stylist</p>
   </footer>
-
     </main>
 
-    <!-- SIDEBAR -->
     <aside class="hidden lg:block">
       <div class="sidebar-sticky">
         <div class="glass rounded-2xl p-5">
           <h3 class="font-bold text-sm tracking-wide mb-3">How it works</h3>
           <ol class="space-y-3 text-xs" style="color: #d8e8f5;">
-            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">1.</span><span>Upload your portrait — front-facing, well-lit</span></li>
-            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">2.</span><span>Pick a hairstyle from the gallery</span></li>
-            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">3.</span><span>AI generates you with that hair (~30 sec)</span></li>
-            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">4.</span><span>Save it, download, or try another</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">1.</span><span>Upload your portrait</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">2.</span><span>Try a hairstyle with AI (instant)</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">3.</span><span>Pick analysis types &amp; preferences</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">4.</span><span>Generate ChatGPT prompts</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">5.</span><span>Paste in ChatGPT, get full reports</span></li>
+            <li class="flex gap-2"><span class="font-black" style="color: #f0abfc;">6.</span><span>Upload result here for Before/After</span></li>
           </ol>
         </div>
         <div class="glass rounded-2xl p-5 mt-4">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-base">💡</span>
-            <h3 class="font-bold text-xs tracking-wider" style="color: #fcd34d;">PRO TIP</h3>
-          </div>
-          <p class="text-xs leading-relaxed" style="color: #d8e8f5;">
-            For best results, use a high-quality photo of just your face and shoulders, looking forward, with even lighting. Avoid sunglasses or hats in the original.
-          </p>
+          <div class="flex items-center gap-2 mb-2"><span class="text-base">💡</span><h3 class="font-bold text-xs tracking-wider" style="color: #fcd34d;">PRO TIP</h3></div>
+          <p class="text-xs leading-relaxed" style="color: #d8e8f5;">For best results, use a clear front-facing portrait with even lighting. Choose the "Editorial Collage" layout for the most magazine-worthy results.</p>
         </div>
       </div>
     </aside>
   </div>
 </div>
 
-<!-- AUTH MODAL -->
 <div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
   <div class="glass rounded-2xl p-6 max-w-sm w-full animate-in">
     <div class="text-center mb-5">
-      <div class="inline-flex w-14 h-14 mb-3 rounded-full items-center justify-center" style="background: linear-gradient(135deg, #0ABAB5, #E91E63);">
-        <span class="text-2xl">✨</span>
-      </div>
+      <div class="inline-flex w-14 h-14 mb-3 rounded-full items-center justify-center" style="background: linear-gradient(135deg, #0ABAB5, #E91E63);"><span class="text-2xl">✨</span></div>
       <h3 id="authTitle" class="text-xl font-bold mb-1">Create your account</h3>
       <p id="authSubtitle" class="text-sm" style="color: var(--text-muted);">Save your style history.</p>
     </div>
     <form id="authForm" class="space-y-3">
-      <div id="nameField">
-        <label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">YOUR NAME</label>
-        <input id="authName" type="text" placeholder="Sarah" />
-      </div>
-      <div>
-        <label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">EMAIL</label>
-        <input id="authEmail" type="email" placeholder="you@email.com" required />
-      </div>
-      <div>
-        <label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">PASSWORD</label>
-        <input id="authPassword" type="password" placeholder="At least 6 characters" required minlength="6" />
-      </div>
+      <div id="nameField"><label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">YOUR NAME</label><input id="authName" type="text" placeholder="Sarah" /></div>
+      <div><label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">EMAIL</label><input id="authEmail" type="email" placeholder="you@email.com" required /></div>
+      <div><label class="block text-xs font-semibold tracking-wider mb-1" style="color: var(--text-muted);">PASSWORD</label><input id="authPassword" type="password" placeholder="At least 6 characters" required minlength="6" /></div>
       <p id="authError" class="hidden text-sm text-red-300"></p>
       <button type="submit" id="authSubmitBtn" class="generate-btn w-full py-3 rounded-xl font-bold text-white">Create account</button>
     </form>
-    <div class="text-center text-xs mt-4" style="color: var(--text-muted);">
-      <span id="authToggleText">Already have an account?</span>
-      <button id="authToggleBtn" class="ml-1 underline font-semibold" style="color: #5eead4;">Log in</button>
-    </div>
+    <div class="text-center text-xs mt-4" style="color: var(--text-muted);"><span id="authToggleText">Already have an account?</span><button id="authToggleBtn" class="ml-1 underline font-semibold" style="color: #5eead4;">Log in</button></div>
     <button id="closeAuthModal" class="block w-full mt-3 py-1 text-xs" style="color: var(--text-muted);">Continue as guest</button>
-    <p class="text-[10px] text-center mt-4 italic" style="color: rgba(189, 209, 233, 0.5);">
-      🔒 Saved on this device. Passwords never leave your browser.
-    </p>
+    <p class="text-[10px] text-center mt-4 italic" style="color: rgba(189, 209, 233, 0.5);">🔒 Saved on this device. Passwords never leave your browser.</p>
   </div>
 </div>
 
-<!-- ACCOUNT MENU -->
 <div id="accountMenu" class="hidden fixed top-14 right-4 lg:right-8 z-40 glass rounded-xl p-3 w-56 animate-in" style="box-shadow: 0 12px 32px rgba(0,0,0,0.3);">
   <div class="px-2 py-2 border-b" style="border-color: rgba(10, 186, 181, 0.2);">
     <p class="text-sm font-bold" id="menuName">Sarah</p>
     <p class="text-xs truncate" id="menuEmail" style="color: var(--text-muted);">sarah@email.com</p>
   </div>
-  <button id="menuLogoutBtn" class="w-full text-left text-sm px-2 py-2 rounded-lg hover:bg-white/5 transition flex items-center gap-2" style="color: #f9a8d4;">
-    <span>↪</span><span>Log out</span>
-  </button>
+  <button id="menuLogoutBtn" class="w-full text-left text-sm px-2 py-2 rounded-lg hover:bg-white/5 flex items-center gap-2" style="color: #f9a8d4;"><span>↪</span><span>Log out</span></button>
 </div>
 
-<!-- UPGRADE MODAL -->
 <div id="upgradeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
   <div class="glass rounded-2xl p-6 max-w-sm w-full animate-in">
     <div class="text-center mb-4">
-      <div class="inline-flex w-14 h-14 mb-3 rounded-full items-center justify-center" style="background: linear-gradient(135deg, #c026d3, #E91E63);">
-        <span class="text-2xl">✨</span>
-      </div>
-      <h3 class="text-xl font-bold mb-2" id="upgradeTitle">You've used your free try-ons</h3>
-      <p class="text-sm" style="color: var(--text-muted);" id="upgradeMsg">Upgrade to keep transforming your look with AI.</p>
+      <div class="inline-flex w-14 h-14 mb-3 rounded-full items-center justify-center" style="background: linear-gradient(135deg, #c026d3, #E91E63);"><span class="text-2xl">✨</span></div>
+      <h3 class="text-xl font-bold mb-2">You've used your free try-ons</h3>
+      <p class="text-sm" style="color: var(--text-muted);">Upgrade to keep transforming your look with AI.</p>
     </div>
     <a id="modalProBtn" href="#" target="_blank" rel="noopener" class="generate-btn block text-center w-full py-3 rounded-xl font-bold text-white mb-2">Upgrade to Pro · $9.99/mo</a>
     <button id="closeUpgradeModal" class="block w-full py-2 text-sm" style="color: var(--text-muted);">Maybe later</button>
@@ -521,44 +478,21 @@
 
 <script>
 // ============================================================
-//  STYLE ATELIER — main app logic
+//  LOOKE ATELIER — main app logic
 // ============================================================
 
 const STRIPE_LINKS = {
   pro:     "https://buy.stripe.com/REPLACE_ME_PRO_LINK",
   premium: "https://buy.stripe.com/REPLACE_ME_PREMIUM_LINK",
 };
+const PLAN_LIMITS = { free: 2, pro: 10, premium: 30 };
 
-// Plan limits — tied to pricing
-const PLAN_LIMITS = {
-  free: 2,
-  pro: 10,
-  premium: 30,
-};
-
-// ============================================================
-//  HAIRSTYLE LIBRARY (must match keys in /api/tryon.js)
-// ============================================================
-const HAIRSTYLES = [
-  { id: "textured_pixie", name: "Textured Pixie",   desc: "Short · low-maintenance", emoji: "✂️" },
-  { id: "curly_tapered",  name: "Curly Tapered",    desc: "Defined coils · versatile", emoji: "💫" },
-  { id: "wavy_pixie",     name: "Wavy Pixie",       desc: "Soft · feminine", emoji: "🌊" },
-  { id: "layered_crop",   name: "Layered Crop",     desc: "Bold · modern", emoji: "⚡" },
-  { id: "sleek_bob",      name: "Sleek Bob",        desc: "Polished · sharp", emoji: "💎" },
-  { id: "long_waves",     name: "Long Waves",       desc: "Romantic · flowing", emoji: "🌸" },
-  { id: "twist_out",      name: "Twist-Out",        desc: "Defined · natural", emoji: "🌀" },
-  { id: "bantu_knots",    name: "Bantu Knots",      desc: "Statement · cultural", emoji: "👑" },
-];
-
-// ============================================================
-//  AUTH
-// ============================================================
-async function hashPassword(plaintext) {
-  const enc = new TextEncoder().encode(plaintext);
+// ---------- AUTH ----------
+async function hashPassword(p) {
+  const enc = new TextEncoder().encode(p);
   const buf = await crypto.subtle.digest("SHA-256", enc);
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
-
 const Auth = {
   _getUsers() { return JSON.parse(localStorage.getItem("sa_users") || "{}"); },
   _saveUsers(u) { localStorage.setItem("sa_users", JSON.stringify(u)); },
@@ -591,136 +525,530 @@ const Auth = {
   logout() { localStorage.removeItem("sa_session"); },
 };
 
-// ============================================================
-//  SWAP COUNTER (per user when signed in, global otherwise)
-// ============================================================
 const Swaps = {
-  _key() {
-    const u = Auth.currentUser();
-    return u ? `sa_swaps_${u.email}` : "sa_swaps_guest";
-  },
+  _key() { const u = Auth.currentUser(); return u ? `sa_swaps_${u.email}` : "sa_swaps_guest"; },
   count() { return parseInt(localStorage.getItem(this._key()) || "0", 10); },
-  increment() {
-    localStorage.setItem(this._key(), (this.count() + 1).toString());
-  },
-  limit() {
-    const u = Auth.currentUser();
-    const plan = u ? u.plan : "free";
-    return PLAN_LIMITS[plan] || PLAN_LIMITS.free;
-  },
+  increment() { localStorage.setItem(this._key(), (this.count() + 1).toString()); },
+  limit() { const u = Auth.currentUser(); return PLAN_LIMITS[u ? u.plan : "free"] || PLAN_LIMITS.free; },
   remaining() { return Math.max(0, this.limit() - this.count()); },
 };
 
-function renderSwapCounter() {
-  const el = document.getElementById("swapCounter");
-  const remaining = Swaps.remaining();
-  const limit = Swaps.limit();
-  if (remaining > 0) {
-    el.innerHTML = `<span style="color: #f0abfc;">${remaining}</span> of ${limit} try-ons remaining`;
-  } else {
-    el.innerHTML = `<span style="color: #fca5a5;">No try-ons left</span> · <a href="#pricing" class="underline">upgrade</a>`;
-  }
-}
-
-// ============================================================
-//  HISTORY
-// ============================================================
 const History = {
-  _key() {
-    const u = Auth.currentUser();
-    return u ? `sa_history_${u.email}` : null;
-  },
-  list() {
-    const k = this._key();
-    if (!k) return [];
-    return JSON.parse(localStorage.getItem(k) || "[]");
-  },
-  add(before, after, hairstyleName) {
-    const k = this._key();
-    if (!k) return false;
+  _key() { const u = Auth.currentUser(); return u ? `sa_history_${u.email}` : null; },
+  list() { const k = this._key(); if (!k) return []; return JSON.parse(localStorage.getItem(k) || "[]"); },
+  add(before, after, label) {
+    const k = this._key(); if (!k) return false;
     const items = this.list();
-    items.unshift({
-      id: Date.now().toString(36),
-      before, after, hairstyleName,
-      createdAt: new Date().toISOString(),
-    });
+    items.unshift({ id: Date.now().toString(36), before, after, label: label || "Look", createdAt: new Date().toISOString() });
     localStorage.setItem(k, JSON.stringify(items.slice(0, 12)));
     return true;
   },
-  remove(id) {
-    const k = this._key();
-    if (!k) return;
-    const items = this.list().filter(i => i.id !== id);
-    localStorage.setItem(k, JSON.stringify(items));
-  },
+  remove(id) { const k = this._key(); if (!k) return; const items = this.list().filter(i => i.id !== id); localStorage.setItem(k, JSON.stringify(items)); },
 };
+
+// ---------- ANALYSIS TYPES ----------
+const ANALYSIS_TYPES = [
+  { id: "facial",      name: "Facial Analysis",        desc: "Anthropometric measurements",      icon: "🔬", visual: true },
+  { id: "color",       name: "Color Analysis",         desc: "Seasonal color & skin tone",       icon: "🎨", visual: true },
+  { id: "glasses",     name: "Glasses Guide",          desc: "Frame matching by face shape",     icon: "👓", visual: true },
+  { id: "hairstyle",   name: "Hairstyle Analysis",     desc: "Best cuts for your face",          icon: "💇", visual: true },
+  { id: "physique",    name: "Physique Analysis",      desc: "Body proportions & posture",       icon: "💪", visual: false },
+  { id: "aesthetics",  name: "Aesthetics Report",      desc: "Golden ratio & harmony",           icon: "✨", visual: true },
+  { id: "outfit",      name: "Outfit Style Guide",     desc: "3 complete looks (men/women)",     icon: "👔", visual: true },
+  { id: "accessories", name: "Accessory Guide",        desc: "Jewelry, watches, bags",           icon: "💍", visual: true },
+  { id: "makeup",      name: "Makeup / Grooming",      desc: "Inclusive feature-led",            icon: "💄", visual: true },
+  { id: "full_report", name: "Full Personal Style Report", desc: "Complete editorial makeover", icon: "📋", visual: true },
+];
+const VIBES = ["Monochrome", "Tailored", "Timeless", "Confident", "Strategic", "Iconic"];
+
+// ---------- HAIRSTYLE LIBRARY (for AI try-on) ----------
+const HAIRSTYLES_LIB = [
+  { id: "textured_pixie", name: "Textured Pixie",   desc: "Short · low-maintenance", emoji: "✂️" },
+  { id: "curly_tapered",  name: "Curly Tapered",    desc: "Defined coils · versatile", emoji: "💫" },
+  { id: "wavy_pixie",     name: "Wavy Pixie",       desc: "Soft · feminine", emoji: "🌊" },
+  { id: "layered_crop",   name: "Layered Crop",     desc: "Bold · modern", emoji: "⚡" },
+  { id: "sleek_bob",      name: "Sleek Bob",        desc: "Polished · sharp", emoji: "💎" },
+  { id: "long_waves",     name: "Long Waves",       desc: "Romantic · flowing", emoji: "🌸" },
+  { id: "twist_out",      name: "Twist-Out",        desc: "Defined · natural", emoji: "🌀" },
+  { id: "bantu_knots",    name: "Bantu Knots",      desc: "Statement · cultural", emoji: "👑" },
+];
+
+
+// ============================================================
+//  PROMPT TEMPLATES — the detailed prompts ChatGPT receives
+// ============================================================
+// These are written to:
+//   - Auto-detect gender presentation (male/female/non-binary)
+//   - Produce editorial-quality magazine-style outputs
+//   - Specifically request the collage layout when chosen
+//   - Include hex codes, brand examples, specific recommendations
+//
+const headerFor = (name) => {
+  const subject = name ? name : "this person";
+  return `This is a new independent image generation task. Use ONLY the uploaded portrait photo as the subject reference. Keep the subject's face, identity, skin tone, ethnicity, age, and features 100% faithful to the original photo. Do NOT alter facial features.
+
+First, observe the subject's apparent gender presentation in the photo (masculine, feminine, or androgynous) and adapt all recommendations to be appropriate. For androgynous presentation, offer both options or gender-neutral choices.
+
+Subject name: ${subject}
+
+`;
+};
+
+const stylePrefsFor = (vibes, priceTier, language, tone, clothingColors) => {
+  let prefs = "";
+  if (vibes.length || priceTier !== "No preference" || clothingColors) {
+    prefs += `\n\nSTYLE PREFERENCES:\n`;
+    if (vibes.length) prefs += `- Overall vibe: ${vibes.join(", ")}\n`;
+    if (priceTier !== "No preference") prefs += `- Price tier: ${priceTier}\n`;
+    if (clothingColors) prefs += `- Preferred clothing colors: ${clothingColors}\n`;
+  }
+  prefs += `\n\nOUTPUT REQUIREMENTS:\n- Language: respond entirely in ${language}\n- Tone: ${tone}, addressing the person as "you"\n- Be specific — explain WHY each recommendation suits this person\n- Include hex codes, brand examples (e.g. Saks, Nordstrom, J.Crew, Brooks Brothers, Magnanni, Bellissimo Hats, MAC), and specific style names where relevant\n- No preamble; begin directly with the report`;
+  return prefs;
+};
+
+const COLLAGE_LAYOUT_INSTRUCTIONS = `
+
+CRITICAL — IMAGE LAYOUT INSTRUCTIONS (Editorial Collage):
+Generate a SINGLE horizontal landscape image (16:9 aspect ratio) styled as a luxury magazine makeover spread, with this EXACT three-column structure:
+
+LEFT COLUMN (33%) — labeled "BEFORE" in a black tab at top-left
+- Full portrait of the subject from the original photo (unchanged)
+- Soft white/neutral background
+- Caption beneath: "Your Natural Look"
+
+CENTER COLUMN (34%) — title block + side-panel guides
+- Top: elegant serif title "BEFORE & AFTER" in navy/black with gold flourish
+- Below the title, stack 2–3 side panels (each in a navy or dark teal box with white text):
+  • GLASSES GUIDE — bullet points with frame style, color, fit
+  • OUTFIT STYLE GUIDE — bullet points for top, bottom, footwear, accessories
+  • ACCESSORY GUIDE (if relevant) — bullet points for jewelry, bag, belt
+- Each side panel must have a clear title bar in dark color and white bullet text
+
+RIGHT COLUMN (33%) — labeled "AFTER" in a colored tab at top-right
+- Full styled portrait of the subject in the new look (face/identity preserved exactly)
+- Soft cream/neutral studio background
+- Caption beneath: "Your Elevated Look"
+
+VISUAL REQUIREMENTS:
+- Editorial luxury magazine aesthetic (think Vogue, GQ, Town & Country)
+- Professional studio photography lighting on both portraits
+- Subject's face, skin tone, ethnicity, and identity must be 100% identical between BEFORE and AFTER
+- Clean typography (serif for titles, sans-serif for body)
+- Side panels arranged vertically in the center column with proper spacing
+- A black footer bar across the bottom with 5–6 power words (e.g. "CONFIDENT. POLISHED. STRATEGIC. TIMELESS. ICONIC.")`;
+
+const PROMPTS = {
+  facial: (ctx) => headerFor(ctx.name) +
+`Generate a professional ANTHROPOMETRIC FACIAL ANALYSIS REPORT in a HORIZONTAL 16:9 landscape layout, styled as a clean clinical reference document.
+
+LEFT HALF — Annotated Portrait
+Show the subject with red dashed measurement lines overlaid on the face, numbered red markers (①②③④⑤⑥) at each measurement point, a subtle dotted face outline, and clean white clinical background.
+
+RIGHT HALF — Measurement Tables
+
+MEASUREMENTS TABLE (in mm):
+| No. | Measurement   | Value (mm) | Description |
+| ①  | Nose Length   | [estimate] | Nasion (N) to Subnasale (Sn) |
+| ②  | Jaw Width     | [estimate] | Gonion (Go) to Gonion (Go) |
+| ③  | Eye Spacing   | [estimate] | Pupil to Pupil |
+| ④  | Face Width    | [estimate] | Right Zygion to Left Zygion |
+| ⑤  | Face Length   | [estimate] | Trichion to Gnathion |
+| ⑥  | Mouth Width   | [estimate] | Cheilion to Cheilion |
+
+PROPORTION INDEX TABLE:
+| Index             | Formula                              | Value |
+| Facial Index      | (Face Width / Face Length) × 100     | [calc] |
+| Upper Face Index  | (Tr–Sn / Face Length) × 100          | [calc] |
+| Lower Face Index  | (Sn–Gn / Face Length) × 100          | [calc] |
+| Nasal Index       | (Nose Width / Nose Length) × 100     | [calc] |
+
+ANATOMICAL LANDMARKS DIAGRAM (small inset right side):
+Simple face diagram with labeled landmarks: Tr, N, Pup, Zy, Sn, Ch, Go, Gn.
+
+NOTES:
+- Approximate based on frontal 2D image
+- Neutral expression · upright head · units in millimeters
+
+SUMMARY:
+Write 2–3 sentences on the subject's facial proportions, harmony, and any notable balance characteristics. Informative, not flattering.
+
+Use navy blue headers, red measurement annotations, light/clinical background, professional typography.`,
+
+  color: (ctx) => headerFor(ctx.name) +
+`Generate a professional PERSONAL COLOR ANALYSIS REPORT in a HORIZONTAL 16:9 landscape layout, styled as an editorial color study.
+
+LEFT HALF — Subject Portrait
+The subject's portrait centered, surrounded by 4-6 color swatches arranged in a halo demonstrating colors that bring out their best features.
+
+RIGHT HALF — Color Analysis
+
+SKIN UNDERTONE: identify as cool / warm / neutral / olive — with 2-sentence rationale referencing skin, hair, and eye color.
+
+SEASONAL CLASSIFICATION:
+Use the 12-season system (Light Spring, Warm Spring, Clear Spring, Light Summer, Cool Summer, Soft Summer, Soft Autumn, Warm Autumn, Deep Autumn, Deep Winter, Cool Winter, Clear Winter). State which season and why.
+
+YOUR COLOR PALETTE — 10 swatches with hex codes
+Display as a grid: each swatch labeled with its name and hex (e.g. "Camel #c19a6b").
+
+COLORS TO AVOID — 4-6 swatches with hex codes and 1-line reasoning each.
+
+BEST METALS: gold / silver / rose gold / copper — pick top 2.
+BEST WHITES: which white to wear (pure white, ivory, cream, off-white).
+BEST NEUTRALS: 3-4 best neutrals.
+
+Clean editorial layout, swatches as the visual anchor.`,
+
+  glasses: (ctx) => headerFor(ctx.name) +
+`Generate a professional SPECTACLES GUIDE in a HORIZONTAL 16:9 landscape layout, styled as a face shape & frame matching report.
+
+LEFT HALF — Subject Portrait
+Subject with subtle white dotted outline traced around face shape, crosshair guidelines, current face proportion ratio displayed (e.g. "1.46"), two small recommended frame thumbnails connected by leader lines with green checkmarks.
+
+RIGHT HALF — Frame Recommendations
+
+HEADER: "FACE SHAPE & FRAME MATCHING"
+Identify the subject's face shape (Oval/Round/Square/Heart/Oblong/Diamond/Triangle/Pear) with 1-line rationale.
+
+RECOMMENDED FRAMES (rated /10):
+List 6 frame styles with ratings and 1-line reason each. Color-code:
+🟢 9-10: e.g. Round | 9.0/10
+🟢 8-9:  Rectangular | 8.5/10
+🟢 8-9:  Aviator | 8.0/10
+🔵 7-8:  Cat-eye | 7.0/10  (only if feminine presentation)
+🔵 7-8:  Rimless | 7.0/10
+🟡 6-7:  Bold Acetate | 6.5/10
+
+FRAMES TO AVOID:
+3 frame styles to avoid, each with 1-line reason.
+
+Note ideal frame width relative to face width, recommended material (acetate/metal/titanium), and color (tortoise/black/clear/metal tones).
+
+Clean modern layout: navy headers, soft gray body text, accent colors for ratings, white background.`,
+
+  hairstyle: (ctx) => headerFor(ctx.name) +
+`Generate a professional HAIRSTYLE ANALYSIS REPORT in a HORIZONTAL 16:9 landscape layout.
+
+LEFT HALF — Subject with Top Recommended Hairstyle
+Show the subject wearing the #1 recommended hairstyle, faithfully rendered. Keep face/identity unchanged.
+
+RIGHT HALF — Style Recommendations
+
+HEADER: "HAIRSTYLE ANALYSIS — Best Cuts For Your Face"
+
+Identify the subject's face shape and hair texture (straight/wavy/curly/coily) with 1-line note.
+
+RECOMMENDED CUTS — 4 styles appropriate to gender presentation:
+For each, show small thumbnail (faithful to subject) and provide:
+- Cut name (men: e.g. "Modern Crew Cut", "Textured Quiff", "Side Part with Fade", "Classic Pomp"; women: e.g. "Textured Pixie", "Long Layers with Curtain Bangs", "Wavy Lob", "Sleek Bob")
+- Length range
+- Parting/styling direction
+- Why it works for this face shape & texture
+
+Mix:
+1. ONE versatile everyday option
+2. ONE low-maintenance option
+3. ONE bolder/statement option
+4. ONE polished/formal option
+
+STYLING TIPS: 3 specific tips (product type, finishing technique, what to avoid).
+
+Modern clean design with soft photography aesthetic.`,
+
+  physique: (ctx) => headerFor(ctx.name) +
+`Generate a professional, RESPECTFUL PHYSIQUE & POSTURE ANALYSIS focused on dressing for proportion and posture improvement — never on weight or body criticism.
+
+Provide a structured text report:
+
+POSTURE OBSERVATION
+Note shoulder line, neck position, head carriage, visible posture patterns. 2-3 sentences. Constructive.
+
+BODY SHAPE & PROPORTIONS
+Identify visible silhouette type. Note shoulder-to-hip ratio, proportion balance.
+
+DRESSING FOR YOUR PROPORTIONS (gender-appropriate):
+- Tops: silhouettes, necklines, sleeve lengths
+- Bottoms: rises, cuts, lengths
+- Layering: jackets and outerwear
+- Fabrics: weights and structures
+- Patterns & scale: what works at this scale
+
+POSTURE-IMPROVING TIPS
+3 simple daily habits (chin tuck, shoulder reset, etc.).
+
+Tone: constructive, encouraging, never about changing the body — only dressing it well.`,
+
+  aesthetics: (ctx) => headerFor(ctx.name) +
+`Generate a professional AESTHETICS REPORT in a HORIZONTAL 16:9 landscape layout, analyzing facial harmony and proportional balance using golden ratio principles.
+
+LEFT HALF — Subject Portrait
+Show with golden ratio overlays: vertical golden spiral or grid lines, Phi (φ = 1.618) ratio markers at key points (forehead, eye line, nose, mouth, chin). Gold/champagne accent lines, subtle and elegant.
+
+RIGHT HALF — Analysis
+
+HEADER: "AESTHETICS REPORT — Facial Harmony Analysis"
+
+GOLDEN RATIO INDICATORS (5 measurements):
+For each, show actual ratio vs. ideal 1.618:
+- Face Length / Face Width
+- Forehead / (Nose + Mouth-Chin)
+- Eye Line / Mouth-Chin
+- Mouth Width / Nose Width
+- Lip Height (upper) / Lip Height (lower)
+
+HARMONY SCORE: a single rating (e.g. "8.4/10") — celebrate, never criticize.
+
+NATURAL STRENGTHS: 3 features that contribute most to the subject's harmony — name them specifically.
+
+ENHANCEMENT IDEAS (non-medical, lifestyle only):
+- Brow shaping direction
+- Hairstyle accents emphasizing strengths
+- Makeup/grooming finishes (gender-appropriate)
+
+SUMMARY: 2-3 sentences celebrating the subject's unique aesthetic identity.
+
+Elegant typography: serif headers, gold/champagne accents, deep navy body text, soft cream background.`,
+};
+
+
+PROMPTS.outfit = (ctx) => headerFor(ctx.name) +
+`Generate a professional OUTFIT STYLE GUIDE in a HORIZONTAL 16:9 landscape layout, styled as a modern fashion editorial.
+
+Adapt to the subject's gender presentation:
+- For MASCULINE presentation: suits, blazers, dress shirts, trousers, pocket squares, ties, leather shoes, watches
+- For FEMININE presentation: blazers, blouses, dresses, trousers/skirts, heels, handbags, jewelry
+- For ANDROGYNOUS: showcase elevated unisex pieces
+
+LAYOUT: Top half shows a flat-lay of the outfit (jacket, shirt/blouse/top, trousers/skirt, shoes, watch/jewelry, bag/pocket square) on a clean light background. Bottom half shows the subject wearing the complete styled look.
+
+Title: "OUTFIT STYLE GUIDE"
+
+DELIVER 3 COMPLETE LOOKS:
+1. PROFESSIONAL — for office / business meetings
+2. SMART CASUAL — for weekend / dinner
+3. ELEVATED EVENING — for events / occasions
+
+For EACH look specify:
+- TOP: silhouette, fabric, color (with hex)
+- BOTTOM: cut, length, color (with hex)
+- FOOTWEAR: specific style and color
+- LAYERING: jacket / outerwear if applicable
+- ACCESSORIES: 1-2 key pieces (watch, belt, bag, pocket square, jewelry)
+
+Tagline beneath each: 5-6 keywords (e.g. "Monochrome. Tailored. Timeless. Confident. Strategic. Iconic.")
+
+Editorial fashion photography aesthetic: clean backgrounds, professional flat-lay style.`;
+
+PROMPTS.accessories = (ctx) => headerFor(ctx.name) +
+`Generate a professional ACCESSORY GUIDE in a HORIZONTAL 16:9 landscape layout, styled as an editorial product showcase.
+
+Adapt categories to gender presentation:
+- MASCULINE: watches, leather goods (briefcases/messenger bags), belts, cufflinks, ties, pocket squares, eyewear
+- FEMININE: jewelry (earrings/necklaces/rings/bracelets), handbags, scarves, belts, watches, eyewear
+- ANDROGYNOUS: unisex watches, bags, belts, eyewear
+
+LAYOUT: Grid of 6-8 accessory products on clean light background, with small inset portrait of subject in corner.
+
+Cover relevant categories with 1-line reasoning each:
+
+JEWELRY / METALS
+- Best metal tone (gold/silver based on undertone)
+- Specific pieces appropriate to gender presentation
+
+WATCHES
+- Case shape, size (mm), strap material/color, dial color
+- Style direction (dress/sport/minimalist/heritage)
+
+BAGS
+- Style (briefcase, messenger, tote, crossbody, clutch — gender-appropriate)
+- Size, structure, color, material
+
+BELTS
+- Width, material, color, buckle style
+
+SUNGLASSES
+- Frame shape, lens tint, frame material/color
+
+SCARVES & POCKET SQUARES (or jewelry sets for feminine)
+- Fabric, scale of pattern, color combinations
+
+For each, explain why it suits the subject's coloring, scale, and style direction.
+
+Editorial product photography style: clean background, soft shadows, professional flat-lay.`;
+
+PROMPTS.makeup = (ctx) => headerFor(ctx.name) +
+`Generate a professional MAKEUP / GROOMING REPORT in a HORIZONTAL 16:9 landscape layout, styled as an editorial beauty guide.
+
+CRITICAL: Adapt the entire content to the subject's gender presentation:
+
+IF FEMININE PRESENTATION → FULL MAKEUP GUIDE:
+LAYOUT: Left half — subject portrait with finished makeup (faithful to identity). Right half — product breakdown with swatches.
+
+DELIVER:
+- COMPLEXION: foundation finish, undertone, coverage, technique
+- BROWS: shape, intensity, product type
+- EYES: 4 EYESHADOW SHADES with hex codes (base, mid-tone, definition, highlight) + liner direction + mascara
+- CHEEKS: blush color (hex) + placement + bronzer/contour
+- LIPS: 3 SHADES with hex codes (everyday nude, polished day-to-night, statement bold)
+- FINISHING: highlight placement, setting
+
+IF MASCULINE PRESENTATION → FULL GROOMING GUIDE:
+LAYOUT: Left half — subject with polished grooming (faithful to identity). Right half — product breakdown.
+
+DELIVER:
+- SKINCARE ROUTINE: cleanser type, moisturizer, SPF, anti-aging step
+- BEARD/FACIAL HAIR: recommended style for face shape, length, edging direction, products (oil, balm)
+- HAIRCARE: product type for hair texture (pomade, paste, wax, gel), styling technique
+- BROWS: grooming, shape (subtle for masculine)
+- FRAGRANCE: 2-3 scent profile recommendations (citrus/woody/spicy/clean)
+- FINISHING: subtle skincare polish (lip balm, eye cream)
+
+IF ANDROGYNOUS → BALANCED APPROACH:
+Cover skincare + minimal natural-finish makeup as enhancement.
+
+Use elegant beauty editorial typography. Show actual swatches/product categories alongside recommendations.`;
+
+PROMPTS.full_report = (ctx) => headerFor(ctx.name) +
+`Generate a comprehensive PERSONAL STYLE MAKEOVER as a SINGLE polished editorial magazine spread image.${ctx.layout === "Editorial Collage" ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
+
+CONTENT (whether in collage layout or text below the image):
+
+01 · FACE SHAPE
+Identify precise face shape with 2-sentence rationale.
+
+02 · COLOR PALETTE
+Skin undertone, season, 8 flattering colors with hex codes, best metals, best whites.
+
+03 · HAIRSTYLE — gender-appropriate
+2-3 cut recommendations with reasoning.
+
+04 · GLASSES
+3 recommended frame styles with 1-line reasoning each.
+
+05 · OUTFIT STYLING — gender-appropriate (suits/blazers for men, blazer-pant or dress for women)
+2 complete outfits with full breakdowns:
+- PROFESSIONAL look
+- SMART CASUAL look
+Each with: top, bottom, footwear, layering, accessories — hex codes included.
+
+06 · ACCESSORIES — gender-appropriate
+Top jewelry/watch/bag/belt recommendations.
+
+07 · MAKEUP / GROOMING — adapted to gender presentation
+Inclusive feature-led recommendations.
+
+08 · STYLE ARCHETYPE
+Identify the subject's natural style archetype (e.g. "Refined Classic", "Modern Minimalist", "Romantic Eclectic", "Sharp Executive"). 2-3 sentences.
+
+09 · STYLE ICONS
+Name 3 style icons (real people, gender-appropriate where relevant) whose aesthetic aligns, with 1-line reasoning each.
+
+10 · YOUR THREE RULES
+3 specific, memorable, tailored style principles — short, quotable, actionable.
+
+11 · TRANSFORMATION CHECKLIST
+"Why This Works For You" — 4-5 bullet points
+"Your Style Mantra" — one quote
+"Quick Style Tips" — 4-5 actionable bullets
+
+Visual treatment: editorial magazine layout, professional typography, clean photography, color swatches, sample outfit flat-lays. Make it feel like a private client style binder from a top consultant. Tagline footer: "CONFIDENT. POLISHED. STRATEGIC. TIMELESS. ICONIC."`;
+
+const COMBINED_PROMPT = (ctx, names) => headerFor(ctx.name) +
+`Generate a COMPREHENSIVE STYLE MAKEOVER as a SINGLE editorial collage image.${ctx.layout === "Editorial Collage" ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
+
+The transformation must integrate ALL of these elements into one cohesive look:
+${names.map(n => `- ${n}`).join("\n")}
+
+Render the AFTER image with: updated hairstyle (if Hairstyle Analysis selected), recommended glasses (if Glasses Guide selected), complete styled outfit gender-appropriate (if Outfit Style Guide selected), tasteful makeup or grooming (if Makeup/Grooming selected), polished accessories (if Accessory Guide selected).
+
+If layout is "Editorial Collage" — follow the 3-column structure above with side-panel guides for Glasses, Outfit, and Accessories.
+If layout is "Before/After" — simple side-by-side full portraits.
+If layout is "3-Panel Grid" — three styled looks (professional, smart casual, evening).
+If layout is "Single Image" — just the styled AFTER look, full body, magazine cover quality.
+
+Bottom of image: tagline of 5-6 keywords (e.g. "MONOCHROME. TAILORED. TIMELESS. CONFIDENT. STRATEGIC. ICONIC.")
+
+Keep face/identity 100% faithful. Editorial magazine layout. High-end product photography lighting.`;
+
 
 // ============================================================
 //  STATE
 // ============================================================
 const state = {
-  photo: null,           // { name, size, dataUrl }
+  photo: null,
+  afterPhoto: null,
+  selected: new Set(),
+  vibes: new Set(),
+  layout: "Editorial Collage",
   selectedHairstyle: null,
-  lastResult: null,      // { afterUrl, hairstyleName }
+  lastTryOnResult: null,
 };
 
 // ============================================================
-//  PHOTO UPLOAD
+//  RENDER ANALYSIS GRID
 // ============================================================
-const dropzone = document.getElementById("dropzone");
-const fileInput = document.getElementById("fileInput");
-const dzEmpty = document.getElementById("dropzoneEmpty");
-const dzFilled = document.getElementById("dropzoneFilled");
-const photoPreview = document.getElementById("photoPreview");
-const photoName = document.getElementById("photoName");
-const photoSize = document.getElementById("photoSize");
-const uploadError = document.getElementById("uploadError");
-
-dropzone.addEventListener("click", (e) => { if (e.target.id !== "changePhoto") fileInput.click(); });
-document.getElementById("changePhoto").addEventListener("click", (e) => { e.stopPropagation(); fileInput.click(); });
-fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
-
-["dragenter","dragover"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add("dragging"); }));
-["dragleave","drop"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove("dragging"); }));
-dropzone.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-
-function handleFile(file) {
-  uploadError.classList.add("hidden");
-  if (!file) return;
-  if (!file.type.startsWith("image/")) {
-    uploadError.textContent = "Please choose an image file (JPG, PNG, or WEBP).";
-    uploadError.classList.remove("hidden"); return;
+const grid = document.getElementById("analysisGrid");
+ANALYSIS_TYPES.forEach(t => {
+  const card = document.createElement("button");
+  card.className = "card-option rounded-xl p-4 text-left flex items-start gap-3";
+  card.dataset.id = t.id;
+  card.innerHTML = `
+    <div class="text-2xl flex-shrink-0">${t.icon}</div>
+    <div class="flex-1 min-w-0">
+      <div class="font-semibold text-sm sm:text-base">${t.name}</div>
+      <div class="text-xs mt-0.5" style="color: rgba(189, 209, 233, 0.75);">${t.desc}</div>
+      ${t.visual ? `<span class="badge-visual mt-2">+ Visual</span>` : ""}
+    </div>
+    <div class="check-circle">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" class="hidden check-tick"><polyline points="2,6 5,9 10,3"/></svg>
+    </div>`;
+  card.addEventListener("click", () => toggleAnalysis(t.id));
+  grid.appendChild(card);
+});
+function toggleAnalysis(id) {
+  const card = grid.querySelector(`[data-id="${id}"]`);
+  const tick = card.querySelector(".check-tick");
+  const circle = card.querySelector(".check-circle");
+  if (state.selected.has(id)) {
+    state.selected.delete(id); card.classList.remove("card-selected");
+    circle.classList.remove("on"); tick.classList.add("hidden");
+  } else {
+    state.selected.add(id); card.classList.add("card-selected");
+    circle.classList.add("on"); tick.classList.remove("hidden");
   }
-  if (file.size > 5 * 1024 * 1024) {
-    uploadError.textContent = "Image is larger than 5MB.";
-    uploadError.classList.remove("hidden"); return;
-  }
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    state.photo = { name: file.name, size: file.size, dataUrl: e.target.result };
-    photoPreview.src = e.target.result;
-    photoName.textContent = file.name;
-    photoSize.textContent = `${(file.size / 1024).toFixed(0)} KB`;
-    dzEmpty.classList.add("hidden");
-    dzFilled.classList.remove("hidden");
-    updateTryOnState();
-  };
-  reader.readAsDataURL(file);
+  const count = state.selected.size;
+  const badge = document.getElementById("selectedCount");
+  if (count > 0) { badge.textContent = `${count} selected`; badge.classList.remove("hidden"); }
+  else badge.classList.add("hidden");
+  updateGenerateState();
 }
 
-// ============================================================
-//  HAIRSTYLE GRID
-// ============================================================
+// VIBE CHIPS
+const vibeChips = document.getElementById("vibeChips");
+VIBES.forEach(v => {
+  const chip = document.createElement("button");
+  chip.className = "vibe-chip"; chip.textContent = v;
+  chip.addEventListener("click", () => {
+    if (state.vibes.has(v)) { state.vibes.delete(v); chip.classList.remove("on"); }
+    else { state.vibes.add(v); chip.classList.add("on"); }
+  });
+  vibeChips.appendChild(chip);
+});
+
+// LAYOUT BUTTONS
+document.querySelectorAll(".layout-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".layout-btn").forEach(b => b.classList.remove("on"));
+    btn.classList.add("on");
+    state.layout = btn.dataset.layout;
+  });
+});
+
+// HAIRSTYLE GRID FOR AI TRY-ON
 const hairGrid = document.getElementById("hairstyleGrid");
-HAIRSTYLES.forEach(h => {
+HAIRSTYLES_LIB.forEach(h => {
   const card = document.createElement("button");
-  card.className = "hairstyle-card text-left";
-  card.dataset.id = h.id;
-  card.innerHTML = `
-    <div class="text-2xl mb-2">${h.emoji}</div>
-    <div class="font-semibold text-sm" style="color: #f0f4f8;">${h.name}</div>
-    <div class="text-[11px] mt-0.5" style="color: var(--text-muted);">${h.desc}</div>
-  `;
+  card.className = "hairstyle-card text-left"; card.dataset.id = h.id;
+  card.innerHTML = `<div class="text-2xl mb-2">${h.emoji}</div><div class="font-semibold text-sm">${h.name}</div><div class="text-[11px] mt-0.5" style="color: var(--text-muted);">${h.desc}</div>`;
   card.addEventListener("click", () => {
     state.selectedHairstyle = h.id;
     document.querySelectorAll(".hairstyle-card").forEach(c => c.classList.toggle("on", c.dataset.id === h.id));
@@ -729,160 +1057,300 @@ HAIRSTYLES.forEach(h => {
   hairGrid.appendChild(card);
 });
 
-// ============================================================
-//  TRY-ON GENERATION
-// ============================================================
-const tryOnBtn = document.getElementById("tryOnBtn");
-const tryOnHint = document.getElementById("tryOnHint");
-const tryOnLoading = document.getElementById("tryOnLoading");
-const tryOnError = document.getElementById("tryOnError");
-const tryOnErrorMsg = document.getElementById("tryOnErrorMsg");
-const tryOnReveal = document.getElementById("tryOnReveal");
-const revealBefore = document.getElementById("revealBefore");
-const revealAfter = document.getElementById("revealAfter");
-const resultCaption = document.getElementById("resultCaption");
+// PHOTO UPLOAD (BEFORE)
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+dropzone.addEventListener("click", e => { if (e.target.id !== "changePhoto") fileInput.click(); });
+document.getElementById("changePhoto").addEventListener("click", e => { e.stopPropagation(); fileInput.click(); });
+fileInput.addEventListener("change", e => handleBeforeFile(e.target.files[0]));
+["dragenter","dragover"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add("dragging"); }));
+["dragleave","drop"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove("dragging"); }));
+dropzone.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) handleBeforeFile(e.dataTransfer.files[0]); });
+function handleBeforeFile(file) {
+  const err = document.getElementById("uploadError");
+  err.classList.add("hidden");
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { err.textContent = "Please choose an image."; err.classList.remove("hidden"); return; }
+  if (file.size > 5*1024*1024) { err.textContent = "Image larger than 5MB."; err.classList.remove("hidden"); return; }
+  const r = new FileReader();
+  r.onload = e => {
+    state.photo = { name: file.name, size: file.size, dataUrl: e.target.result };
+    document.getElementById("photoPreview").src = e.target.result;
+    document.getElementById("photoName").textContent = file.name;
+    document.getElementById("photoSize").textContent = `${(file.size/1024).toFixed(0)} KB`;
+    document.getElementById("dropzoneEmpty").classList.add("hidden");
+    document.getElementById("dropzoneFilled").classList.remove("hidden");
+    updateGenerateState();
+    updateTryOnState();
+  };
+  r.readAsDataURL(file);
+}
 
+// AFTER PHOTO UPLOAD (FOR CHATGPT RESULT)
+const afterDropzone = document.getElementById("afterDropzone");
+const afterFileInput = document.getElementById("afterFileInput");
+afterDropzone.addEventListener("click", e => { if (e.target.id !== "changeAfterPhoto") afterFileInput.click(); });
+document.getElementById("changeAfterPhoto").addEventListener("click", e => { e.stopPropagation(); afterFileInput.click(); });
+afterFileInput.addEventListener("change", e => handleAfterFile(e.target.files[0]));
+["dragenter","dragover"].forEach(ev => afterDropzone.addEventListener(ev, e => { e.preventDefault(); afterDropzone.classList.add("dragging"); }));
+["dragleave","drop"].forEach(ev => afterDropzone.addEventListener(ev, e => { e.preventDefault(); afterDropzone.classList.remove("dragging"); }));
+afterDropzone.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) handleAfterFile(e.dataTransfer.files[0]); });
+function handleAfterFile(file) {
+  const err = document.getElementById("afterError");
+  err.classList.add("hidden");
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { err.textContent = "Please choose an image."; err.classList.remove("hidden"); return; }
+  if (file.size > 5*1024*1024) { err.textContent = "Image larger than 5MB."; err.classList.remove("hidden"); return; }
+  const r = new FileReader();
+  r.onload = e => {
+    state.afterPhoto = { name: file.name, size: file.size, dataUrl: e.target.result };
+    document.getElementById("afterPhotoName").textContent = file.name;
+    document.getElementById("afterDropzoneEmpty").classList.add("hidden");
+    document.getElementById("afterDropzoneFilled").classList.remove("hidden");
+    showCgReveal();
+  };
+  r.readAsDataURL(file);
+}
+function showCgReveal() {
+  if (state.photo && state.afterPhoto) {
+    document.getElementById("cgRevealBefore").src = state.photo.dataUrl;
+    document.getElementById("cgRevealAfter").src = state.afterPhoto.dataUrl;
+    document.getElementById("cgRevealSection").classList.remove("hidden");
+    document.getElementById("cgHistoryNote").classList.add("hidden");
+  }
+}
+
+// SAVE CHATGPT RESULT TO HISTORY
+document.getElementById("saveCgHistoryBtn").addEventListener("click", () => {
+  const note = document.getElementById("cgHistoryNote");
+  if (!Auth.currentUser()) {
+    openAuthModal("signup");
+    note.textContent = "Sign up to save your history (free)."; note.style.color = "#f9a8d4"; note.classList.remove("hidden");
+    return;
+  }
+  if (!state.photo || !state.afterPhoto) return;
+  History.add(state.photo.dataUrl, state.afterPhoto.dataUrl, "ChatGPT Style Makeover");
+  note.textContent = "✓ Saved to your history"; note.style.color = "#5eead4"; note.classList.remove("hidden");
+  renderHistory();
+});
+
+// DOWNLOAD CHATGPT BEFORE/AFTER COMBO
+document.getElementById("downloadCgComboBtn").addEventListener("click", () => {
+  if (!state.photo || !state.afterPhoto) return;
+  const before = new Image(), after = new Image();
+  let loaded = 0;
+  const onload = () => { loaded++; if (loaded < 2) return;
+    const TARGET_H = 1000;
+    const bW = Math.round(TARGET_H * (before.naturalWidth/before.naturalHeight));
+    const aW = Math.round(TARGET_H * (after.naturalWidth/after.naturalHeight));
+    const GAP = 24, PAD = 32;
+    const canvas = document.createElement("canvas");
+    canvas.width = bW + aW + GAP + PAD*2; canvas.height = TARGET_H + PAD*2 + 60;
+    const ctx = canvas.getContext("2d");
+    const grad = ctx.createLinearGradient(0,0,canvas.width,0);
+    grad.addColorStop(0,"#0ABAB5"); grad.addColorStop(1,"#E91E63");
+    ctx.fillStyle = grad; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "#0a1628";
+    ctx.fillRect(PAD-4, PAD-4, bW+8, TARGET_H+8);
+    ctx.fillRect(PAD+bW+GAP-4, PAD-4, aW+8, TARGET_H+8);
+    ctx.drawImage(before, PAD, PAD, bW, TARGET_H);
+    ctx.drawImage(after, PAD+bW+GAP, PAD, aW, TARGET_H);
+    ctx.font = "bold 22px Inter, sans-serif"; ctx.fillStyle = "white";
+    ctx.fillText("BEFORE", PAD+16, PAD+38);
+    ctx.fillText("AFTER", PAD+bW+GAP+16, PAD+38);
+    ctx.font = "italic 18px Inter, sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.textAlign = "center";
+    ctx.fillText("Looke Atelier · AI Personal Stylist", canvas.width/2, canvas.height-24);
+    const link = document.createElement("a");
+    link.download = "looke-atelier-makeover.png"; link.href = canvas.toDataURL("image/png"); link.click();
+  };
+  before.onload = onload; after.onload = onload;
+  before.src = state.photo.dataUrl; after.src = state.afterPhoto.dataUrl;
+});
+
+// ============================================================
+//  AI TRY-ON FLOW
+// ============================================================
+function renderSwapCounter() {
+  const el = document.getElementById("swapCounter");
+  const r = Swaps.remaining(), l = Swaps.limit();
+  if (r > 0) el.innerHTML = `<span style="color: #f0abfc;">${r}</span> of ${l} try-ons remaining`;
+  else el.innerHTML = `<span style="color: #fca5a5;">No try-ons left</span> · <a href="#pricing" class="underline">upgrade</a>`;
+}
 function updateTryOnState() {
   const ready = state.photo && state.selectedHairstyle;
-  tryOnBtn.disabled = !ready;
-  if (!state.photo && !state.selectedHairstyle) tryOnHint.textContent = "Upload a photo and pick a hairstyle";
-  else if (!state.photo) tryOnHint.textContent = "Upload a photo first";
-  else if (!state.selectedHairstyle) tryOnHint.textContent = "Pick a hairstyle";
-  else {
-    const h = HAIRSTYLES.find(x => x.id === state.selectedHairstyle);
-    tryOnHint.textContent = `Ready to try: ${h.name}`;
-  }
+  const btn = document.getElementById("tryOnBtn");
+  const hint = document.getElementById("tryOnHint");
+  btn.disabled = !ready;
+  if (!state.photo && !state.selectedHairstyle) hint.textContent = "Upload a photo and pick a hairstyle";
+  else if (!state.photo) hint.textContent = "Upload a photo first";
+  else if (!state.selectedHairstyle) hint.textContent = "Pick a hairstyle";
+  else { const h = HAIRSTYLES_LIB.find(x => x.id === state.selectedHairstyle); hint.textContent = `Ready to try: ${h.name}`; }
 }
 updateTryOnState();
 
-tryOnBtn.addEventListener("click", () => {
-  if (Swaps.remaining() <= 0) {
-    showUpgradeModal();
-    return;
-  }
+document.getElementById("tryOnBtn").addEventListener("click", () => {
+  if (Swaps.remaining() <= 0) { showUpgradeModal(); return; }
   generateTryOn();
 });
-
 document.getElementById("regenerateBtn").addEventListener("click", () => {
-  tryOnReveal.classList.add("hidden");
-  document.querySelector('h2').scrollIntoView({ behavior: "smooth" });
+  document.getElementById("tryOnReveal").classList.add("hidden");
+  document.querySelector('h2').scrollIntoView({behavior:"smooth"});
 });
-
 document.getElementById("tryOnRetry").addEventListener("click", () => {
-  tryOnError.classList.add("hidden");
+  document.getElementById("tryOnError").classList.add("hidden");
   generateTryOn();
 });
 
 async function generateTryOn() {
-  // UI: show loading, hide everything else
-  tryOnError.classList.add("hidden");
-  tryOnReveal.classList.add("hidden");
-  tryOnLoading.classList.remove("hidden");
+  const tryOnError = document.getElementById("tryOnError");
+  const tryOnReveal = document.getElementById("tryOnReveal");
+  const tryOnLoading = document.getElementById("tryOnLoading");
+  const tryOnBtn = document.getElementById("tryOnBtn");
+  tryOnError.classList.add("hidden"); tryOnReveal.classList.add("hidden"); tryOnLoading.classList.remove("hidden");
   tryOnBtn.disabled = true;
 
-  // Show varying loading messages so it doesn't feel stuck
-  const messages = [
-    "Analyzing your portrait…",
-    "Studying the new style…",
-    "Generating your transformation…",
-    "Adding the finishing touches…",
-  ];
-  let msgIdx = 0;
-  const loadingNote = document.getElementById("loadingNote");
-  const interval = setInterval(() => {
-    msgIdx = (msgIdx + 1) % messages.length;
-    loadingNote.textContent = messages[msgIdx];
-  }, 8000);
+  const messages = ["Analyzing your portrait…","Studying the new style…","Generating your transformation…","Adding the finishing touches…"];
+  let i = 0;
+  const interval = setInterval(() => { i = (i+1) % messages.length; document.getElementById("loadingNote").textContent = messages[i]; }, 8000);
 
   try {
     const resp = await fetch("/api/tryon", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        photo: state.photo.dataUrl,
-        hairstyle: state.selectedHairstyle,
-      }),
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ photo: state.photo.dataUrl, hairstyle: state.selectedHairstyle }),
     });
-
-    clearInterval(interval);
-    tryOnLoading.classList.add("hidden");
-
+    clearInterval(interval); tryOnLoading.classList.add("hidden");
     const data = await resp.json();
-
-    if (!resp.ok || !data.success) {
-      throw new Error(data.error || "Generation failed. Please try again.");
-    }
-
-    // Increment counter ONLY on success — don't charge users for failed generations
-    Swaps.increment();
-    renderSwapCounter();
-
-    // Show reveal
-    state.lastResult = { afterUrl: data.imageUrl, hairstyleName: data.hairstyleName };
-    revealBefore.src = state.photo.dataUrl;
-    revealAfter.src = data.imageUrl;
-    resultCaption.textContent = `Your new look: ${data.hairstyleName}`;
+    if (!resp.ok || !data.success) throw new Error(data.error || "Generation failed.");
+    Swaps.increment(); renderSwapCounter();
+    state.lastTryOnResult = { afterUrl: data.imageUrl, hairstyleName: data.hairstyleName };
+    document.getElementById("revealBefore").src = state.photo.dataUrl;
+    document.getElementById("revealAfter").src = data.imageUrl;
+    document.getElementById("resultCaption").textContent = `Your new look: ${data.hairstyleName}`;
     tryOnReveal.classList.remove("hidden");
-    tryOnReveal.scrollIntoView({ behavior: "smooth", block: "center" });
+    tryOnReveal.scrollIntoView({behavior:"smooth", block:"center"});
     document.getElementById("saveNote").classList.add("hidden");
   } catch (err) {
-    clearInterval(interval);
-    tryOnLoading.classList.add("hidden");
-    tryOnErrorMsg.textContent = err.message || "Something went wrong.";
+    clearInterval(interval); tryOnLoading.classList.add("hidden");
+    document.getElementById("tryOnErrorMsg").textContent = err.message || "Something went wrong.";
     tryOnError.classList.remove("hidden");
-  } finally {
-    tryOnBtn.disabled = false;
-  }
+  } finally { tryOnBtn.disabled = false; }
 }
 
-// Save to history
 document.getElementById("saveResultBtn").addEventListener("click", async () => {
   const note = document.getElementById("saveNote");
-  const user = Auth.currentUser();
-  if (!user) {
+  if (!Auth.currentUser()) {
     openAuthModal("signup");
-    note.textContent = "Sign up to save your history (free).";
-    note.style.color = "#f9a8d4";
-    note.classList.remove("hidden");
+    note.textContent = "Sign up to save your history (free)."; note.style.color = "#f9a8d4"; note.classList.remove("hidden");
     return;
   }
-  if (!state.photo || !state.lastResult) return;
-  // Convert remote AI image to data URL so it persists
+  if (!state.photo || !state.lastTryOnResult) return;
   try {
-    const imgResp = await fetch(state.lastResult.afterUrl);
-    const blob = await imgResp.blob();
+    const r = await fetch(state.lastTryOnResult.afterUrl);
+    const blob = await r.blob();
     const reader = new FileReader();
     reader.onload = () => {
-      History.add(state.photo.dataUrl, reader.result, state.lastResult.hairstyleName);
+      History.add(state.photo.dataUrl, reader.result, state.lastTryOnResult.hairstyleName);
       renderHistory();
-      note.textContent = "✓ Saved to your history";
-      note.style.color = "#5eead4";
-      note.classList.remove("hidden");
+      note.textContent = "✓ Saved to your history"; note.style.color = "#5eead4"; note.classList.remove("hidden");
     };
     reader.readAsDataURL(blob);
-  } catch {
-    note.textContent = "Couldn't save — try downloading instead.";
-    note.style.color = "#fca5a5";
-    note.classList.remove("hidden");
-  }
+  } catch { note.textContent = "Couldn't save — try downloading."; note.style.color = "#fca5a5"; note.classList.remove("hidden"); }
 });
 
-// Download
 document.getElementById("downloadResultBtn").addEventListener("click", async () => {
-  if (!state.lastResult) return;
+  if (!state.lastTryOnResult) return;
   try {
-    const resp = await fetch(state.lastResult.afterUrl);
-    const blob = await resp.blob();
+    const r = await fetch(state.lastTryOnResult.afterUrl);
+    const blob = await r.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = `looke-atelier-${state.lastResult.hairstyleName.replace(/\s+/g, "-").toLowerCase()}.jpg`;
-    a.click();
-    URL.revokeObjectURL(url);
-  } catch (e) {
-    alert("Couldn't download. Try right-clicking the image and saving manually.");
-  }
+    a.href = url; a.download = `looke-atelier-${state.lastTryOnResult.hairstyleName.replace(/\s+/g,"-").toLowerCase()}.jpg`;
+    a.click(); URL.revokeObjectURL(url);
+  } catch { alert("Couldn't download. Right-click the image to save."); }
 });
+
+// ============================================================
+//  GENERATE PROMPTS
+// ============================================================
+const generateBtn = document.getElementById("generateBtn");
+function updateGenerateState() {
+  const ready = state.photo && state.selected.size > 0;
+  generateBtn.disabled = !ready;
+  const hint = document.getElementById("generateHint");
+  if (!state.photo && state.selected.size === 0) hint.textContent = "Upload a photo and select at least one analysis";
+  else if (!state.photo) hint.textContent = "Upload a photo to continue";
+  else if (state.selected.size === 0) hint.textContent = "Select at least one analysis";
+  else hint.textContent = `Ready to generate · ${state.selected.size} analysis type(s)`;
+}
+updateGenerateState();
+generateBtn.addEventListener("click", () => generatePrompts());
+
+function generatePrompts() {
+  const ctx = {
+    name: document.getElementById("userName").value.trim() || (Auth.currentUser()?.name || ""),
+    priceTier: document.getElementById("priceTier").value,
+    language: document.getElementById("language").value,
+    tone: document.getElementById("tone").value,
+    clothingColors: document.getElementById("clothingColors").value.trim(),
+    layout: state.layout,
+    vibes: [...state.vibes],
+  };
+  const prefs = stylePrefsFor(ctx.vibes, ctx.priceTier, ctx.language, ctx.tone, ctx.clothingColors);
+  const layoutNote = `\n\nPreferred visual layout: ${ctx.layout}.`;
+  const container = document.getElementById("promptsContainer");
+  container.innerHTML = "";
+
+  const visualSelected = [...state.selected].filter(id => {
+    const t = ANALYSIS_TYPES.find(a => a.id === id);
+    return t && t.visual && id !== "full_report";
+  });
+  if (visualSelected.length >= 2) {
+    const names = visualSelected.map(id => ANALYSIS_TYPES.find(a => a.id === id).name);
+    const text = COMBINED_PROMPT(ctx, names) + layoutNote + prefs;
+    container.appendChild(promptCard("✨ Combined Style Makeover", "Editorial collage covering all selected types", text, true));
+  }
+  state.selected.forEach(id => {
+    const type = ANALYSIS_TYPES.find(a => a.id === id);
+    const text = PROMPTS[id](ctx) + layoutNote + prefs;
+    container.appendChild(promptCard(`${type.icon} ${type.name}`, type.visual ? "Visual + Report" : "Report", text, false));
+  });
+  document.getElementById("outputSection").classList.remove("hidden");
+  document.getElementById("outputSection").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function promptCard(title, badge, text, featured) {
+  const card = document.createElement("div");
+  card.className = "glass rounded-2xl p-4 sm:p-5 animate-in";
+  if (featured) card.style.boxShadow = "0 0 0 1px rgba(233, 30, 99, 0.4), 0 0 24px rgba(233, 30, 99, 0.15)";
+  card.innerHTML = `
+    <div class="flex items-center justify-between gap-2 mb-1 flex-wrap">
+      <div class="flex items-center gap-2 min-w-0">
+        <h4 class="font-bold text-sm sm:text-base truncate">${title}</h4>
+        <span class="text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full" style="${featured ? 'background: rgba(233, 30, 99, 0.22); color: #f9a8d4;' : 'background: rgba(10, 186, 181, 0.2); color: #5eead4;'}">${badge}</span>
+      </div>
+      <button class="copy-btn flex items-center gap-1.5">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+    ${featured ? '<p class="text-xs mb-3" style="color: #f9a8d4;">Combined prompt for all selected visual types</p>' : ""}
+    <div class="prompt-output">${escapeHtml(text)}</div>`;
+  const btn = card.querySelector(".copy-btn");
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.classList.add("copied");
+      btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Copied!`;
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+      }, 2000);
+      window.open("https://chatgpt.com", "_blank", "noopener");
+    } catch { alert("Couldn't copy. Please select and copy manually."); }
+  });
+  return card;
+}
+function escapeHtml(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
 // ============================================================
 //  HISTORY UI
@@ -904,17 +1372,17 @@ function renderHistory() {
     card.innerHTML = `
       <div class="grid grid-cols-2 gap-0.5 bg-black/40">
         <div class="relative aspect-[3/4] overflow-hidden">
-          <img src="${item.before}" class="w-full h-full object-cover" alt="Before"/>
+          <img src="${item.before}" class="w-full h-full object-cover" alt=""/>
           <span class="absolute top-1 left-1 text-[8px] tracking-widest font-bold px-1.5 py-0.5 rounded" style="background: rgba(245,158,11,0.9); color: white;">B</span>
         </div>
         <div class="relative aspect-[3/4] overflow-hidden">
-          <img src="${item.after}" class="w-full h-full object-cover" alt="After"/>
+          <img src="${item.after}" class="w-full h-full object-cover" alt=""/>
           <span class="absolute top-1 left-1 text-[8px] tracking-widest font-bold px-1.5 py-0.5 rounded" style="background: rgba(192,38,211,0.9); color: white;">A</span>
         </div>
       </div>
       <div class="p-2 flex items-center justify-between gap-2" style="background: rgba(10, 22, 40, 0.6);">
         <div class="min-w-0">
-          <p class="text-[11px] font-medium truncate" style="color: #f0f4f8;">${item.hairstyleName || "Look"}</p>
+          <p class="text-[11px] font-medium truncate">${escapeHtml(item.label || "Look")}</p>
           <p class="text-[9px]" style="color: var(--text-muted);">${new Date(item.createdAt).toLocaleDateString()}</p>
         </div>
         <button data-id="${item.id}" class="delete-history text-[10px] underline shrink-0" style="color: #f87171;">Delete</button>
@@ -923,80 +1391,17 @@ function renderHistory() {
   });
   grid.querySelectorAll(".delete-history").forEach(btn => {
     btn.addEventListener("click", () => {
-      if (confirm("Delete this look from history?")) {
-        History.remove(btn.dataset.id);
-        renderHistory();
-      }
+      if (confirm("Delete this look from history?")) { History.remove(btn.dataset.id); renderHistory(); }
     });
   });
 }
 
 // ============================================================
-//  CHATGPT PROMPT GENERATOR (collapsed by default)
-// ============================================================
-const ANALYSIS_TYPES = [
-  { id: "color",      name: "Color Analysis",     desc: "Seasonal palette",        icon: "🎨" },
-  { id: "glasses",    name: "Glasses Guide",      desc: "Frame matching",          icon: "👓" },
-  { id: "outfit",     name: "Outfit Style Guide", desc: "Three complete looks",    icon: "👔" },
-  { id: "full_report",name: "Full Style Report",  desc: "Comprehensive analysis",  icon: "📋" },
-];
-const promptSelected = new Set();
-const promptGrid = document.getElementById("analysisGrid");
-ANALYSIS_TYPES.forEach(t => {
-  const card = document.createElement("button");
-  card.className = "card-option rounded-xl p-3 text-left flex items-start gap-3";
-  card.dataset.id = t.id;
-  card.innerHTML = `
-    <div class="text-xl flex-shrink-0">${t.icon}</div>
-    <div class="flex-1 min-w-0">
-      <div class="font-semibold text-sm">${t.name}</div>
-      <div class="text-xs mt-0.5" style="color: var(--text-muted);">${t.desc}</div>
-    </div>
-    <div class="check-circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" class="hidden check-tick"><polyline points="2,6 5,9 10,3"/></svg></div>`;
-  card.addEventListener("click", () => {
-    if (promptSelected.has(t.id)) {
-      promptSelected.delete(t.id);
-      card.classList.remove("card-selected");
-      card.querySelector(".check-circle").classList.remove("on");
-      card.querySelector(".check-tick").classList.add("hidden");
-    } else {
-      promptSelected.add(t.id);
-      card.classList.add("card-selected");
-      card.querySelector(".check-circle").classList.add("on");
-      card.querySelector(".check-tick").classList.remove("hidden");
-    }
-  });
-  promptGrid.appendChild(card);
-});
-
-document.getElementById("generatePromptBtn").addEventListener("click", () => {
-  if (!state.photo) { alert("Please upload your photo first."); return; }
-  if (promptSelected.size === 0) { alert("Pick at least one analysis type."); return; }
-  const name = document.getElementById("userName").value.trim() || (Auth.currentUser()?.name || "this person");
-  const language = document.getElementById("language").value;
-  const tone = document.getElementById("tone").value;
-  const types = [...promptSelected].map(id => ANALYSIS_TYPES.find(t => t.id === id).name).join(", ");
-  const promptText = `This is a new image task. Use ONLY the uploaded portrait as the subject reference. Keep the subject's face, identity, and features 100% faithful. Subject name: ${name}.\n\nGenerate a comprehensive personal style analysis covering: ${types}.\n\nDeliver detailed, specific recommendations with hex codes, brand examples, and reasoning. Respond in ${language}, with a ${tone} tone, addressing the person as "you". No preamble — begin directly with the report.`;
-
-  const out = document.getElementById("promptOutputSection");
-  out.innerHTML = `
-    <div class="prompt-output mb-3">${promptText.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</div>
-    <button id="copyPromptBtn" class="copy-btn">Copy &amp; open ChatGPT</button>`;
-  out.classList.remove("hidden");
-
-  document.getElementById("copyPromptBtn").addEventListener("click", async () => {
-    await navigator.clipboard.writeText(promptText);
-    window.open("https://chatgpt.com", "_blank", "noopener");
-  });
-});
-
-// ============================================================
-//  AUTH MODAL
+//  AUTH UI
 // ============================================================
 const authModal = document.getElementById("authModal");
 const authForm = document.getElementById("authForm");
 let authMode = "signup";
-
 function openAuthModal(mode = "signup") {
   authMode = mode;
   if (mode === "signup") {
@@ -1015,118 +1420,63 @@ function openAuthModal(mode = "signup") {
     document.getElementById("nameField").classList.add("hidden");
   }
   document.getElementById("authError").classList.add("hidden");
-  authForm.reset();
-  authModal.classList.remove("hidden");
-  authModal.classList.add("flex");
+  authForm.reset(); authModal.classList.remove("hidden"); authModal.classList.add("flex");
 }
-function closeAuthModal() {
-  authModal.classList.add("hidden");
-  authModal.classList.remove("flex");
-}
+function closeAuthModal() { authModal.classList.add("hidden"); authModal.classList.remove("flex"); }
 document.getElementById("loginBtn").addEventListener("click", () => openAuthModal("login"));
 document.getElementById("signupBtn").addEventListener("click", () => openAuthModal("signup"));
 document.getElementById("closeAuthModal").addEventListener("click", closeAuthModal);
 document.getElementById("authToggleBtn").addEventListener("click", () => openAuthModal(authMode === "signup" ? "login" : "signup"));
-authModal.addEventListener("click", (e) => { if (e.target === authModal) closeAuthModal(); });
-
-authForm.addEventListener("submit", async (e) => {
+authModal.addEventListener("click", e => { if (e.target === authModal) closeAuthModal(); });
+authForm.addEventListener("submit", async e => {
   e.preventDefault();
   const errEl = document.getElementById("authError");
   errEl.classList.add("hidden");
   const submitBtn = document.getElementById("authSubmitBtn");
-  submitBtn.disabled = true;
-  submitBtn.textContent = "…";
+  submitBtn.disabled = true; submitBtn.textContent = "…";
   try {
-    if (authMode === "signup") {
-      await Auth.signup(document.getElementById("authName").value, document.getElementById("authEmail").value, document.getElementById("authPassword").value);
-    } else {
-      await Auth.login(document.getElementById("authEmail").value, document.getElementById("authPassword").value);
-    }
-    closeAuthModal();
-    refreshAuthUI();
-    renderSwapCounter();
-    renderHistory();
-  } catch (err) {
-    errEl.textContent = err.message;
-    errEl.classList.remove("hidden");
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = authMode === "signup" ? "Create account" : "Log in";
-  }
+    if (authMode === "signup") await Auth.signup(document.getElementById("authName").value, document.getElementById("authEmail").value, document.getElementById("authPassword").value);
+    else await Auth.login(document.getElementById("authEmail").value, document.getElementById("authPassword").value);
+    closeAuthModal(); refreshAuthUI(); renderSwapCounter(); renderHistory();
+  } catch (err) { errEl.textContent = err.message; errEl.classList.remove("hidden"); }
+  finally { submitBtn.disabled = false; submitBtn.textContent = authMode === "signup" ? "Create account" : "Log in"; }
 });
 
-// ============================================================
-//  ACCOUNT MENU
-// ============================================================
 const accountMenu = document.getElementById("accountMenu");
 function refreshAuthUI() {
   const user = Auth.currentUser();
   const buttons = document.getElementById("authButtons");
   if (user) {
     const initial = (user.name || user.email)[0].toUpperCase();
-    buttons.innerHTML = `
-      <span class="hidden sm:inline text-xs" style="color: var(--text-muted);">Hi, ${user.name}</span>
-      <button id="avatarBtn" class="avatar" title="Account">${initial}</button>`;
-    document.getElementById("avatarBtn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      accountMenu.classList.toggle("hidden");
-    });
+    buttons.innerHTML = `<span class="hidden sm:inline text-xs" style="color: var(--text-muted);">Hi, ${escapeHtml(user.name)}</span><button id="avatarBtn" class="avatar">${initial}</button>`;
+    document.getElementById("avatarBtn").addEventListener("click", e => { e.stopPropagation(); accountMenu.classList.toggle("hidden"); });
     document.getElementById("menuName").textContent = user.name;
     document.getElementById("menuEmail").textContent = user.email;
   } else {
-    buttons.innerHTML = `
-      <button id="loginBtn" class="text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg" style="color: #5eead4;">Log in</button>
-      <button id="signupBtn" class="generate-btn text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg">Sign up</button>`;
+    buttons.innerHTML = `<button id="loginBtn" class="text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg" style="color: #5eead4;">Log in</button><button id="signupBtn" class="generate-btn text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg">Sign up</button>`;
     document.getElementById("loginBtn").addEventListener("click", () => openAuthModal("login"));
     document.getElementById("signupBtn").addEventListener("click", () => openAuthModal("signup"));
     accountMenu.classList.add("hidden");
   }
 }
-
-document.addEventListener("click", (e) => {
-  if (!accountMenu.classList.contains("hidden")) {
-    if (!accountMenu.contains(e.target) && e.target.id !== "avatarBtn") {
-      accountMenu.classList.add("hidden");
-    }
-  }
+document.addEventListener("click", e => {
+  if (!accountMenu.classList.contains("hidden") && !accountMenu.contains(e.target) && e.target.id !== "avatarBtn") accountMenu.classList.add("hidden");
 });
-document.getElementById("menuLogoutBtn").addEventListener("click", () => {
-  Auth.logout();
-  refreshAuthUI();
-  renderSwapCounter();
-  renderHistory();
-});
+document.getElementById("menuLogoutBtn").addEventListener("click", () => { Auth.logout(); refreshAuthUI(); renderSwapCounter(); renderHistory(); });
 
-// ============================================================
-//  UPGRADE MODAL
-// ============================================================
+// UPGRADE MODAL
 const upgradeModal = document.getElementById("upgradeModal");
-function showUpgradeModal() {
-  upgradeModal.classList.remove("hidden");
-  upgradeModal.classList.add("flex");
-}
-document.getElementById("closeUpgradeModal").addEventListener("click", () => {
-  upgradeModal.classList.add("hidden");
-  upgradeModal.classList.remove("flex");
-});
-upgradeModal.addEventListener("click", (e) => {
-  if (e.target === upgradeModal) {
-    upgradeModal.classList.add("hidden");
-    upgradeModal.classList.remove("flex");
-  }
-});
+function showUpgradeModal() { upgradeModal.classList.remove("hidden"); upgradeModal.classList.add("flex"); }
+document.getElementById("closeUpgradeModal").addEventListener("click", () => { upgradeModal.classList.add("hidden"); upgradeModal.classList.remove("flex"); });
+upgradeModal.addEventListener("click", e => { if (e.target === upgradeModal) { upgradeModal.classList.add("hidden"); upgradeModal.classList.remove("flex"); } });
 
 document.getElementById("proBtn").href = STRIPE_LINKS.pro;
 document.getElementById("modalProBtn").href = STRIPE_LINKS.pro;
 document.getElementById("premiumBtn").href = STRIPE_LINKS.premium;
 
-// ============================================================
-//  INIT
-// ============================================================
+// INIT
 document.getElementById("currentYear").textContent = new Date().getFullYear();
-refreshAuthUI();
-renderSwapCounter();
-renderHistory();
+refreshAuthUI(); renderSwapCounter(); renderHistory();
 </script>
 </body>
 </html>
