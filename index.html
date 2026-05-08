@@ -238,7 +238,17 @@
         <button class="layout-btn vibe-chip" data-layout="3-Panel Grid">3-Panel Grid</button>
         <button class="layout-btn vibe-chip" data-layout="Single Image">Single Image</button>
       </div>
-      <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">Tap to toggle — pick one or more. "Editorial Collage" = full transformation board with side-panel guides (like the Romona / male executive examples)</p>
+      <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">Tap to toggle — pick one or more. "Editorial Collage" = full transformation board with side-panel guides. "3-Panel Grid" = Before + After headshot + After full-body.</p>
+    </div>
+    <div class="mb-4">
+      <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">📐 POSE &amp; FRAMING (for AFTER images)</label>
+      <select id="poseFraming">
+        <option value="full-body-standing">Full-body Standing — shows complete outfit (recommended)</option>
+        <option value="full-body-seated">Full-body Seated — relaxed professional</option>
+        <option value="half-body">Half-body / Waist-up — top &amp; accessories</option>
+        <option value="headshot">Headshot — face, hair, glasses only</option>
+      </select>
+      <p class="text-xs mt-1 italic" style="color: rgba(189, 209, 233, 0.5);">Tells ChatGPT what body framing to show in your styled AFTER photo</p>
     </div>
     <div class="mb-4">
       <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">🎨 PREFERRED CLOTHING COLORS (max 4)</label>
@@ -609,34 +619,101 @@ const stylePrefsFor = (vibes, priceTier, language, tone, clothingColors) => {
 
 const COLLAGE_LAYOUT_INSTRUCTIONS = `
 
-CRITICAL — IMAGE LAYOUT INSTRUCTIONS (Editorial Collage):
-Generate a SINGLE horizontal landscape image (16:9 aspect ratio) styled as a luxury magazine makeover spread, with this EXACT three-column structure:
+CRITICAL — IMAGE LAYOUT INSTRUCTIONS (Editorial Collage / Romona-Style Makeover Board):
+Generate a SINGLE landscape image (16:9 or wider) styled as a luxury magazine makeover spread. This is THE most important format — follow this layout EXACTLY.
 
-LEFT COLUMN (33%) — labeled "BEFORE" in a black tab at top-left
-- Full portrait of the subject from the original photo (unchanged)
-- Soft white/neutral background
-- Caption beneath: "Your Natural Look"
+═══════════════════════════════════════
+TOP TITLE BAR (full width, ~10% height) — cream/off-white background
+═══════════════════════════════════════
+- Headline: "[SUBJECT'S NAME] STYLE MAKEOVER" — name in BOLD PINK/MAGENTA (#E91E63), "STYLE MAKEOVER" in BLACK
+- Use elegant serif font (think Vogue editorial)
+- Subtitle below in small caps: "CONFIDENT. POLISHED. UNAPOLOGETICALLY YOU." with small crown ♛ on each side
 
-CENTER COLUMN (34%) — title block + side-panel guides
-- Top: elegant serif title "BEFORE & AFTER" in navy/black with gold flourish
-- Below the title, stack 2–3 side panels (each in a navy or dark teal box with white text):
-  • GLASSES GUIDE — bullet points with frame style, color, fit
-  • OUTFIT STYLE GUIDE — bullet points for top, bottom, footwear, accessories
-  • ACCESSORY GUIDE (if relevant) — bullet points for jewelry, bag, belt
-- Each side panel must have a clear title bar in dark color and white bullet text
+═══════════════════════════════════════
+MAIN BODY (3 columns side by side, ~70% height)
+═══════════════════════════════════════
 
-RIGHT COLUMN (33%) — labeled "AFTER" in a colored tab at top-right
-- Full styled portrait of the subject in the new look (face/identity preserved exactly)
-- Soft cream/neutral studio background
-- Caption beneath: "Your Elevated Look"
+LEFT COLUMN (~28% width) — "BEFORE":
+- Black tab labeled "BEFORE" at top-left of column
+- Small italic caption "Your Natural Look" beneath the tab
+- FULL-BODY BEFORE photo (the original uploaded photo, UNCHANGED — preserve face/identity/clothing/pose exactly as uploaded)
+- Light neutral background
 
-VISUAL REQUIREMENTS:
-- Editorial luxury magazine aesthetic (think Vogue, GQ, Town & Country)
-- Professional studio photography lighting on both portraits
-- Subject's face, skin tone, ethnicity, and identity must be 100% identical between BEFORE and AFTER
-- Clean typography (serif for titles, sans-serif for body)
-- Side panels arranged vertically in the center column with proper spacing
-- A black footer bar across the bottom with 5–6 power words (e.g. "CONFIDENT. POLISHED. STRATEGIC. TIMELESS. ICONIC.")`;
+CENTER COLUMN (~36% width) — "AFTER":
+- Pink/magenta tab labeled "AFTER" at top-left of column
+- Pink italic script caption beneath: "Your Elevated Look ✨"
+- FULL-BODY AFTER photo of the styled subject — POSE/FRAMING per the instructions at end of this prompt
+- Face/identity/skin tone/ethnicity 100% preserved from BEFORE — only styling changes
+- Soft cream/neutral studio backdrop
+- Beneath the photo, a small pink/cream callout box titled "YOUR TRANSFORMATION" (pink small caps) with 5 pink-checkmark bullets:
+  ✓ Frames your face beautifully
+  ✓ Elevates your presence instantly
+  ✓ Creates balance, shape & proportion
+  ✓ Brings out your natural glow
+  ✓ Projects confidence & authority
+
+RIGHT COLUMN (~36% width) — STYLE GUIDE PANELS (stack 5 vertically):
+Each panel has a BLACK header bar with white serif title, and a cream/light content body underneath.
+
+Panel 1 — GLASSES GUIDE
+- Pink italic subtitle: "♛ Best Shapes For You"
+- 3 frame thumbnails in a row with names below (gender-appropriate: Cat-Eye / Soft Square / Rounded Rectangle for feminine; Modern Rectangular / Aviator / Round for masculine)
+- 1-line note: color & material recommendations
+
+Panel 2 — HAIRSTYLE ANALYSIS
+- Pink italic subtitle: "♛ Recommended Styles"
+- 4 hairstyle thumbnails in a row with names beneath (rendered faithful to subject's coloring and face shape)
+- 1-line note: why these work
+
+Panel 3 — OUTFIT STYLE GUIDE
+- Pink italic subtitle: "Your Power Palette: [primary colors]"
+- 5-piece outfit flat-lay: jacket / top / bottom / shoes / bag (gender-appropriate: blazer-blouse-pants-heels-handbag for feminine; blazer-shirt-trousers-loafers-watch for masculine)
+- 1-line note: tailored pieces and clean lines
+
+Panel 4 — ACCESSORY GUIDE
+- Pink italic subtitle: "♛ Details That Elevate"
+- 5 accessories displayed in a row (gender-appropriate: hoops/earrings, necklace, bracelet, watch, belt for feminine; cufflinks, pocket square, bracelet/ring, watch, belt for masculine)
+- 1-line note: how they elevate
+
+Panel 5 — AESTHETICS REPORT (with LIGHT PINK background to stand out)
+- Pink subtitle: "Your Style Pillars"
+- 5 small icons in a row, each with a label below: CONFIDENT (crown ♛) / POLISHED (gem ♦) / POWERFUL (target ◎) / TIMELESS (star ★) / AUTHENTIC (heart ♥)
+- 1-line note: "You lead with strength, style, and authenticity. This look reflects the best version of you."
+
+═══════════════════════════════════════
+BLACK FOOTER BAR (full width, ~7% height) — solid black
+═══════════════════════════════════════
+- White elegant serif text spaced out: "CONFIDENT.    POLISHED.    STRATEGIC.    TIMELESS.    ICONIC."
+- Followed by pink/magenta cursive script: "You. But Elevated. ♥"
+
+═══════════════════════════════════════
+BOTTOM CONTENT ROW (full width, ~13% height, cream background) — 3 columns
+═══════════════════════════════════════
+
+Column 1 — "WHY THIS WORKS FOR YOU" (pink small caps title)
+- 2-3 sentence paragraph CUSTOMIZED to the subject explaining how this look enhances their natural beauty, balance, and the powerful confident person they already are
+
+Column 2 — "YOUR STYLE MANTRA" (pink small caps title)
+- A short customized pull quote in large pink italic with prominent quotation marks
+- Example format: "I don't just show up, I make an entrance" — but make it specific to this subject
+
+Column 3 — "QUICK STYLE TIPS" (pink small caps title)
+- 4 short actionable bullets with pink checkmarks, customized to the subject:
+  ✓ Keep the fit tailored, not tight
+  ✓ Add structured pieces for instant polish
+  ✓ Stick to your palette for a cohesive look
+  ✓ [4th tip personalized to subject]
+
+═══════════════════════════════════════
+VISUAL STANDARDS:
+═══════════════════════════════════════
+- Editorial magazine aesthetic — Vogue / Town & Country / GQ quality
+- Color palette: cream/off-white background, BLACK header bars, PINK/MAGENTA #E91E63 accents, gold flourishes
+- Typography: elegant serif for titles (Playfair Display style), clean sans-serif for body, italic pink script for captions
+- All photography: professional studio lighting, neutral backgrounds
+- Subject's face, skin tone, ethnicity, and identity 100% IDENTICAL between BEFORE and AFTER
+- Output must be ONE single comprehensive image — do not split into multiple files
+`;
 
 const PROMPTS = {
   facial: (ctx) => headerFor(ctx.name) +
@@ -961,10 +1038,10 @@ ${names.map(n => `- ${n}`).join("\n")}
 
 Render the AFTER image with: updated hairstyle (if Hairstyle Analysis selected), recommended glasses (if Glasses Guide selected), complete styled outfit gender-appropriate (if Outfit Style Guide selected), tasteful makeup or grooming (if Makeup/Grooming selected), polished accessories (if Accessory Guide selected).
 
-If layout is "Editorial Collage" — follow the 3-column structure above with side-panel guides for Glasses, Outfit, and Accessories.
-If layout is "Before/After" — simple side-by-side full portraits.
-If layout is "3-Panel Grid" — three styled looks (professional, smart casual, evening).
-If layout is "Single Image" — just the styled AFTER look, full body, magazine cover quality.
+If layout is "Editorial Collage" — follow the 3-column structure above with BEFORE on left, side-panel guides in center (Glasses, Outfit, Accessories), and AFTER on right.
+If layout is "Before/After" — Two large side-by-side images: BEFORE (original photo, unchanged) and AFTER (fully styled in the requested pose framing).
+If layout is "3-Panel Grid" — Three panels left-to-right: Panel 1 BEFORE original photo / Panel 2 AFTER headshot showing face/hair/glasses detail / Panel 3 AFTER full-body in the requested pose showing complete styled outfit.
+If layout is "Single Image" — Just the AFTER look in the requested pose, magazine cover quality, no comparison.
 
 Bottom of image: tagline of 5-6 keywords (e.g. "MONOCHROME. TAILORED. TIMELESS. CONFIDENT. STRATEGIC. ICONIC.")
 
@@ -1306,11 +1383,22 @@ function generatePrompts() {
     layouts: [...state.layouts],
     layout: [...state.layouts][0] || "Editorial Collage",
     vibes: [...state.vibes],
+    poseFraming: document.getElementById("poseFraming").value,
   };
   const prefs = stylePrefsFor(ctx.vibes, ctx.priceTier, ctx.language, ctx.tone, ctx.clothingColors);
-  const layoutNote = ctx.layouts.length > 1
+
+  const framingMap = {
+    "full-body-standing": "FULL-BODY STANDING POSE — show the subject from head to toe in a polished, confident standing pose, displaying the complete styled outfit including footwear, against a clean studio backdrop",
+    "full-body-seated": "FULL-BODY SEATED POSE — show the subject in a relaxed yet polished seated position (on a chair, sofa, or stool), displaying the complete styled outfit including footwear",
+    "half-body": "HALF-BODY / WAIST-UP — show the subject from the waist up, emphasizing the top, jewelry, accessories, and grooming detail",
+    "headshot": "HEADSHOT — show only the subject's face, neck, and shoulders, focused on hair, glasses, makeup/grooming, and earrings"
+  };
+  const framingDesc = framingMap[ctx.poseFraming] || framingMap["full-body-standing"];
+  const framingNote = `\n\nCRITICAL — POSE & FRAMING for ALL AFTER images: ${framingDesc}. This is essential so the user sees the complete styled look.`;
+
+  const layoutNote = (ctx.layouts.length > 1
     ? `\n\nIMPORTANT: Generate ${ctx.layouts.length} separate images, one in each of these layouts: ${ctx.layouts.join(", ")}.`
-    : `\n\nPreferred visual layout: ${ctx.layout}.`;
+    : `\n\nPreferred visual layout: ${ctx.layout}.`) + framingNote;
   const container = document.getElementById("promptsContainer");
   container.innerHTML = "";
 
@@ -1328,6 +1416,40 @@ function generatePrompts() {
     const text = PROMPTS[id](ctx) + layoutNote + prefs;
     container.appendChild(promptCard(`${type.icon} ${type.name}`, type.visual ? "Visual + Report" : "Report", text, false));
   });
+
+  // ----- Copy All bar (shows when 2+ prompts exist) -----
+  const allPromptCards = container.querySelectorAll('[data-prompt-text]');
+  if (allPromptCards.length >= 2) {
+    const copyAllBar = document.createElement('div');
+    copyAllBar.className = 'rounded-2xl p-4 sm:p-5 animate-in';
+    copyAllBar.style.cssText = 'background: linear-gradient(135deg, rgba(10, 186, 181, 0.18), rgba(233, 30, 99, 0.22)); border: 1.5px solid rgba(233, 30, 99, 0.55); box-shadow: 0 0 32px rgba(233, 30, 99, 0.18);';
+    copyAllBar.innerHTML = '<div class="flex items-start justify-between gap-3 flex-wrap mb-2"><div class="min-w-0 flex-1"><h4 class="font-bold text-base mb-1">📋 Copy All ' + allPromptCards.length + ' Prompts at Once</h4><p class="text-xs" style="color: var(--text-muted);">Paste once into ChatGPT — get all your analyses in a single response.</p></div><button id="copyAllBtn" class="generate-btn text-sm font-bold text-white px-5 py-2.5 rounded-xl whitespace-nowrap shrink-0">📋 Copy All &amp; Open ChatGPT</button></div><p class="text-[11px] italic" style="color: rgba(189, 209, 233, 0.55);">💡 Tip: Pasting many prompts at once may give shorter responses per topic. For deepest analysis on each, copy them one at a time using the buttons below.</p>';
+    container.insertBefore(copyAllBar, container.firstChild);
+
+    document.getElementById('copyAllBtn').addEventListener('click', async () => {
+      const cards = container.querySelectorAll('[data-prompt-text]');
+      const divider = '═══════════════════════════════════════';
+      const sections = [...cards].map((c, i) =>
+        divider + '\nPROMPT ' + (i + 1) + ' OF ' + cards.length + ': ' + c.dataset.promptTitle + '\n' + divider + '\n\n' + c.dataset.promptText
+      );
+      const masterPrompt = "I'd like you to complete all " + cards.length + " of the following style analyses for my uploaded photo. Provide each analysis as a clearly-labeled section in your response, using the structure described in each prompt.\n\n" + sections.join('\n\n\n') + '\n\n' + divider + '\nEND OF PROMPTS\n' + divider + '\n\nPlease provide all analyses in order. Keep each section clearly distinct.';
+
+      const btn = document.getElementById('copyAllBtn');
+      try {
+        await navigator.clipboard.writeText(masterPrompt);
+        btn.textContent = '✓ Copied! Opening ChatGPT…';
+        btn.style.background = 'linear-gradient(135deg, #0ABAB5, #14b8a6)';
+        window.open('https://chatgpt.com', '_blank', 'noopener');
+        setTimeout(() => {
+          btn.innerHTML = '📋 Copy All &amp; Open ChatGPT';
+          btn.style.background = '';
+        }, 3000);
+      } catch (err) {
+        alert('Could not copy. Please use the individual copy buttons below.');
+      }
+    });
+  }
+
   document.getElementById("outputSection").classList.remove("hidden");
   document.getElementById("outputSection").scrollIntoView({behavior:"smooth", block:"start"});
 }
@@ -1335,6 +1457,8 @@ function generatePrompts() {
 function promptCard(title, badge, text, featured) {
   const card = document.createElement("div");
   card.className = "glass rounded-2xl p-4 sm:p-5 animate-in";
+  card.dataset.promptTitle = title;
+  card.dataset.promptText = text;
   if (featured) card.style.boxShadow = "0 0 0 1px rgba(233, 30, 99, 0.4), 0 0 24px rgba(233, 30, 99, 0.15)";
   card.innerHTML = `
     <div class="flex items-center justify-between gap-2 mb-1 flex-wrap">
