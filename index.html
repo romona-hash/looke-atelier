@@ -69,7 +69,8 @@
   .reveal-label { position: absolute; top: 12px; left: 12px; background: rgba(10, 22, 40, 0.85); padding: 4px 10px; border-radius: 999px; font-size: 0.65rem; letter-spacing: 0.18em; font-weight: 700; color: white; }
   .reveal-label.before { background: linear-gradient(135deg, #f59e0b, #ef4444); }
   .reveal-label.after { background: linear-gradient(135deg, #c026d3, #E91E63); }
-  .mock-screen { background: #1a1a1a; border: 1px solid rgba(10, 186, 181, 0.28); border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; }
+  .mock-screen { background: #1a1a1a; border: 1px solid rgba(10, 186, 181, 0.28); border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; transition: all 0.2s; display: block; }
+  .mock-screen:hover { border-color: rgba(233, 30, 99, 0.7); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(233, 30, 99, 0.25); }
   @media (min-width: 1024px) {
     .desktop-grid { display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
     .sidebar-sticky { position: sticky; top: 24px; }
@@ -237,7 +238,7 @@
         <button class="layout-btn vibe-chip" data-layout="3-Panel Grid">3-Panel Grid</button>
         <button class="layout-btn vibe-chip" data-layout="Single Image">Single Image</button>
       </div>
-      <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">"Editorial Collage" = full transformation board with side-panel guides (like the Romona / male executive examples)</p>
+      <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">Tap to toggle — pick one or more. "Editorial Collage" = full transformation board with side-panel guides (like the Romona / male executive examples)</p>
     </div>
     <div class="mb-4">
       <label class="block text-xs font-semibold tracking-wider mb-2" style="color: #5eead4;">🎨 PREFERRED CLOTHING COLORS (max 4)</label>
@@ -264,7 +265,7 @@
     <div class="flex items-center gap-2 mb-1"><span class="text-lg">🚀</span><h3 class="text-base sm:text-lg font-bold tracking-wide">WHAT HAPPENS NEXT IN CHATGPT</h3></div>
     <p class="text-sm mb-5" style="color: var(--text-muted);">After you copy a prompt, here's exactly what to do.</p>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="space-y-3"><div class="mock-screen relative">
+      <div class="space-y-3"><a href="https://chatgpt.com" target="_blank" rel="noopener" class="mock-screen relative">
         <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
           <rect width="200" height="20" fill="#0a0a0a"/><circle cx="9" cy="10" r="2.5" fill="#19c37d"/>
           <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
@@ -274,10 +275,10 @@
           <circle cx="28" cy="121" r="11" fill="rgba(233,30,99,0.22)" stroke="#E91E63" stroke-width="1"/>
           <text x="44" y="124" fill="#6e6e80" font-size="7" font-family="Inter">Message ChatGPT…</text>
           <text x="28" y="148" text-anchor="middle" fill="#E91E63" font-size="5.5" font-family="Inter" font-weight="700">CLICK 📎</text>
-        </svg></div>
-        <div><h4 class="font-bold text-sm">1 · Open ChatGPT</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Click the paperclip 📎 to attach your photo.</p></div>
+        </svg></a>
+        <div><h4 class="font-bold text-sm">1 · Open ChatGPT <span class="text-xs font-normal" style="color: #5eead4;">→ click to open</span></h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Click the paperclip 📎 to attach your photo.</p></div>
       </div>
-      <div class="space-y-3"><div class="mock-screen relative">
+      <div class="space-y-3"><a href="https://chatgpt.com" target="_blank" rel="noopener" class="mock-screen relative">
         <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
           <rect width="200" height="20" fill="#0a0a0a"/>
           <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
@@ -292,10 +293,10 @@
           <circle cx="172" cy="121" r="8" fill="#E91E63"/>
           <path d="M168 121 L176 121 M173 118 L176 121 L173 124" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round"/>
           <text x="172" y="148" text-anchor="middle" fill="#E91E63" font-size="5.5" font-family="Inter" font-weight="700">SEND</text>
-        </svg></div>
-        <div><h4 class="font-bold text-sm">2 · Upload + Paste</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Pick your photo, paste the copied prompt, hit <strong>Send</strong>.</p></div>
+        </svg></a>
+        <div><h4 class="font-bold text-sm">2 · Upload + Paste <span class="text-xs font-normal" style="color: #5eead4;">→ click to open</span></h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Pick your photo, paste the copied prompt, hit <strong>Send</strong>.</p></div>
       </div>
-      <div class="space-y-3"><div class="mock-screen relative">
+      <div class="space-y-3"><a href="https://chatgpt.com" target="_blank" rel="noopener" class="mock-screen relative">
         <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
           <rect width="200" height="20" fill="#0a0a0a"/>
           <text x="18" y="13.5" fill="#ececf1" font-size="7.5" font-family="Inter" font-weight="600">ChatGPT</text>
@@ -317,8 +318,8 @@
           <rect x="128" y="102" width="10" height="10" rx="1" fill="#e8dcc4"/>
           <rect x="142" y="102" width="10" height="10" rx="1" fill="#E91E63"/>
           <text x="86" y="125" fill="#0ABAB5" font-size="4" font-style="italic">Your Style Report ✨</text>
-        </svg></div>
-        <div><h4 class="font-bold text-sm">3 · Get your report</h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Within ~30 seconds, ChatGPT delivers your editorial-quality analysis.</p></div>
+        </svg></a>
+        <div><h4 class="font-bold text-sm">3 · Get your report <span class="text-xs font-normal" style="color: #5eead4;">→ click to open</span></h4><p class="text-xs leading-relaxed" style="color: var(--text-muted);">Within ~30 seconds, ChatGPT delivers your editorial-quality analysis.</p></div>
       </div>
     </div>
     <a id="openChatGPT" href="https://chatgpt.com" target="_blank" rel="noopener" class="generate-btn block text-center w-full sm:w-auto sm:inline-block mt-6 px-8 py-3 rounded-xl font-bold text-white">Open ChatGPT now →</a>
@@ -908,7 +909,7 @@ Cover skincare + minimal natural-finish makeup as enhancement.
 Use elegant beauty editorial typography. Show actual swatches/product categories alongside recommendations.`;
 
 PROMPTS.full_report = (ctx) => headerFor(ctx.name) +
-`Generate a comprehensive PERSONAL STYLE MAKEOVER as a SINGLE polished editorial magazine spread image.${ctx.layout === "Editorial Collage" ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
+`Generate a comprehensive PERSONAL STYLE MAKEOVER as a SINGLE polished editorial magazine spread image.${(ctx.layouts || [ctx.layout]).includes("Editorial Collage") ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
 
 CONTENT (whether in collage layout or text below the image):
 
@@ -953,7 +954,7 @@ Name 3 style icons (real people, gender-appropriate where relevant) whose aesthe
 Visual treatment: editorial magazine layout, professional typography, clean photography, color swatches, sample outfit flat-lays. Make it feel like a private client style binder from a top consultant. Tagline footer: "CONFIDENT. POLISHED. STRATEGIC. TIMELESS. ICONIC."`;
 
 const COMBINED_PROMPT = (ctx, names) => headerFor(ctx.name) +
-`Generate a COMPREHENSIVE STYLE MAKEOVER as a SINGLE editorial collage image.${ctx.layout === "Editorial Collage" ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
+`Generate a COMPREHENSIVE STYLE MAKEOVER as a SINGLE editorial collage image.${(ctx.layouts || [ctx.layout]).includes("Editorial Collage") ? COLLAGE_LAYOUT_INSTRUCTIONS : ''}
 
 The transformation must integrate ALL of these elements into one cohesive look:
 ${names.map(n => `- ${n}`).join("\n")}
@@ -978,7 +979,7 @@ const state = {
   afterPhoto: null,
   selected: new Set(),
   vibes: new Set(),
-  layout: "Editorial Collage",
+  layouts: new Set(["Editorial Collage"]),
   selectedHairstyle: null,
   lastTryOnResult: null,
 };
@@ -1004,6 +1005,8 @@ ANALYSIS_TYPES.forEach(t => {
   card.addEventListener("click", () => toggleAnalysis(t.id));
   grid.appendChild(card);
 });
+// Pre-select Full Personal Style Report by default so Generate button works immediately
+toggleAnalysis("full_report");
 function toggleAnalysis(id) {
   const card = grid.querySelector(`[data-id="${id}"]`);
   const tick = card.querySelector(".check-tick");
@@ -1037,9 +1040,19 @@ VIBES.forEach(v => {
 // LAYOUT BUTTONS
 document.querySelectorAll(".layout-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".layout-btn").forEach(b => b.classList.remove("on"));
-    btn.classList.add("on");
-    state.layout = btn.dataset.layout;
+    const layout = btn.dataset.layout;
+    if (state.layouts.has(layout)) {
+      state.layouts.delete(layout);
+      btn.classList.remove("on");
+      // Always keep at least one layout selected
+      if (state.layouts.size === 0) {
+        state.layouts.add(layout);
+        btn.classList.add("on");
+      }
+    } else {
+      state.layouts.add(layout);
+      btn.classList.add("on");
+    }
   });
 });
 
@@ -1292,11 +1305,14 @@ function generatePrompts() {
     language: document.getElementById("language").value,
     tone: document.getElementById("tone").value,
     clothingColors: document.getElementById("clothingColors").value.trim(),
-    layout: state.layout,
+    layouts: [...state.layouts],
+    layout: [...state.layouts][0] || "Editorial Collage",
     vibes: [...state.vibes],
   };
   const prefs = stylePrefsFor(ctx.vibes, ctx.priceTier, ctx.language, ctx.tone, ctx.clothingColors);
-  const layoutNote = `\n\nPreferred visual layout: ${ctx.layout}.`;
+  const layoutNote = ctx.layouts.length > 1
+    ? `\n\nIMPORTANT: Generate ${ctx.layouts.length} separate images, one in each of these layouts: ${ctx.layouts.join(", ")}.`
+    : `\n\nPreferred visual layout: ${ctx.layout}.`;
   const container = document.getElementById("promptsContainer");
   container.innerHTML = "";
 
