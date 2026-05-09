@@ -1168,12 +1168,38 @@ customHairInput.addEventListener("input", (e) => {
 // PHOTO UPLOAD (BEFORE)
 const dropzone = document.getElementById("dropzone");
 const fileInput = document.getElementById("fileInput");
-dropzone.addEventListener("click", e => { if (e.target.id !== "changePhoto") fileInput.click(); });
-document.getElementById("changePhoto").addEventListener("click", e => { e.stopPropagation(); fileInput.click(); });
+
+// SIGN-UP GATE — used to require sign-up before key actions
+let pendingActionAfterSignup = null;
+function signupGate(action) {
+  if (Auth.currentUser()) {
+    // User is signed in — proceed with the action
+    action();
+    return true;
+  }
+  // Not signed in — store the action and open signup modal
+  pendingActionAfterSignup = action;
+  openAuthModal("signup");
+  return false;
+}
+
+dropzone.addEventListener("click", e => {
+  if (e.target.id === "changePhoto") return;
+  signupGate(() => fileInput.click());
+});
+document.getElementById("changePhoto").addEventListener("click", e => {
+  e.stopPropagation();
+  signupGate(() => fileInput.click());
+});
 fileInput.addEventListener("change", e => handleBeforeFile(e.target.files[0]));
 ["dragenter","dragover"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add("dragging"); }));
 ["dragleave","drop"].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove("dragging"); }));
-dropzone.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) handleBeforeFile(e.dataTransfer.files[0]); });
+dropzone.addEventListener("drop", e => {
+  e.preventDefault();
+  if (!e.dataTransfer.files[0]) return;
+  const file = e.dataTransfer.files[0];
+  signupGate(() => handleBeforeFile(file));
+});
 function handleBeforeFile(file) {
   const err = document.getElementById("uploadError");
   err.classList.add("hidden");
@@ -1635,9 +1661,12 @@ const authForm = document.getElementById("authForm");
 let authMode = "signup";
 function openAuthModal(mode = "signup") {
   authMode = mode;
+  const isGated = pendingActionAfterSignup !== null;
   if (mode === "signup") {
-    document.getElementById("authTitle").textContent = "Create your account";
-    document.getElementById("authSubtitle").textContent = "Save your style history.";
+    document.getElementById("authTitle").textContent = isGated ? "Quick free sign-up to continue" : "Create your account";
+    document.getElementById("authSubtitle").textContent = isGated
+      ? "Takes 10 seconds. We'll save your work and progress."
+      : "Save your style history.";
     document.getElementById("authSubmitBtn").textContent = "Create account";
     document.getElementById("authToggleText").textContent = "Already have an account?";
     document.getElementById("authToggleBtn").textContent = "Log in";
@@ -1652,8 +1681,14 @@ function openAuthModal(mode = "signup") {
   }
   document.getElementById("authError").classList.add("hidden");
   authForm.reset(); authModal.classList.remove("hidden"); authModal.classList.add("flex");
+  // Hide "Continue as guest" when the modal was triggered by a gated action
+  const closeBtn = document.getElementById("closeAuthModal");
+  if (closeBtn) closeBtn.style.display = isGated ? "none" : "";
 }
-function closeAuthModal() { authModal.classList.add("hidden"); authModal.classList.remove("flex"); }
+function closeAuthModal() {
+  authModal.classList.add("hidden"); authModal.classList.remove("flex");
+  pendingActionAfterSignup = null;
+}
 document.getElementById("loginBtn").addEventListener("click", () => openAuthModal("login"));
 document.getElementById("signupBtn").addEventListener("click", () => openAuthModal("signup"));
 document.getElementById("closeAuthModal").addEventListener("click", closeAuthModal);
@@ -1669,6 +1704,12 @@ authForm.addEventListener("submit", async e => {
     if (authMode === "signup") await Auth.signup(document.getElementById("authName").value, document.getElementById("authEmail").value, document.getElementById("authPassword").value);
     else await Auth.login(document.getElementById("authEmail").value, document.getElementById("authPassword").value);
     closeAuthModal(); refreshAuthUI(); renderSwapCounter(); renderHistory();
+    // If a gated action was waiting, execute it now
+    if (pendingActionAfterSignup) {
+      const action = pendingActionAfterSignup;
+      pendingActionAfterSignup = null;
+      setTimeout(action, 100);
+    }
   } catch (err) { errEl.textContent = err.message; errEl.classList.remove("hidden"); }
   finally { submitBtn.disabled = false; submitBtn.textContent = authMode === "signup" ? "Create account" : "Log in"; }
 });
