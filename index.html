@@ -63,6 +63,8 @@
   .hairstyle-card { background: rgba(20, 40, 70, 0.55); border: 1.5px solid rgba(10, 186, 181, 0.3); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.15s; }
   .hairstyle-card:hover { border-color: rgba(10, 186, 181, 0.7); transform: translateY(-1px); }
   .hairstyle-card.on { background: linear-gradient(135deg, rgba(10, 186, 181, 0.25), rgba(233, 30, 99, 0.2)); border-color: rgba(233, 30, 99, 0.85); box-shadow: 0 0 20px rgba(233, 30, 99, 0.3); }
+  .custom-hair-input { background: rgba(10, 22, 40, 0.7); border: 1.5px dashed rgba(233, 30, 99, 0.6); padding: 12px; border-radius: 12px; transition: all 0.15s; }
+  .custom-hair-input:focus-within { border-color: rgba(233, 30, 99, 0.95); border-style: solid; box-shadow: 0 0 18px rgba(233, 30, 99, 0.25); }
   .reveal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: linear-gradient(135deg, #0ABAB5, #E91E63); padding: 2px; border-radius: 16px; }
   .reveal-half { background: rgba(10, 22, 40, 0.95); border-radius: 14px; overflow: hidden; aspect-ratio: 3/4; position: relative; }
   .reveal-half img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -147,7 +149,15 @@
       <h3 class="text-sm font-semibold tracking-wider" style="color: #f0abfc;">CHOOSE A STYLE</h3>
       <p class="text-xs" style="color: var(--text-muted);">Tap to try it on</p>
     </div>
-    <div id="hairstyleGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5"></div>
+    <div id="hairstyleGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4"></div>
+    <div class="custom-hair-input mb-5">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-base">✍️</span>
+        <span class="text-sm font-semibold" style="color: #f0abfc;">Or describe your own hairstyle</span>
+      </div>
+      <input id="customHairInput" type="text" placeholder='e.g. "blonde balayage long waves" or "shoulder-length curly bob with bangs"' maxlength="200" />
+      <p class="text-[11px] mt-2 italic" style="color: rgba(189, 209, 233, 0.55);">💡 Be specific: include length, texture, color, and any distinctive features. AI works best with detailed descriptions.</p>
+    </div>
     <button id="tryOnBtn" class="generate-btn w-full py-3.5 rounded-xl font-bold text-white disabled:opacity-40">✨ Generate My Try-On</button>
     <p id="tryOnHint" class="text-center text-xs mt-2" style="color: var(--text-muted);">Upload a photo and pick a hairstyle</p>
     <div id="tryOnLoading" class="hidden mt-5 p-5 rounded-xl text-center shimmer-loading">
@@ -283,9 +293,12 @@
         <div class="inline-flex w-14 h-14 mb-3 rounded-xl items-center justify-center" style="background: rgba(139, 92, 246, 0.18);">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8m0 0l-3-3m3 3l3-3"/><path d="M3 16v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
         </div>
-        <p class="font-semibold text-base mb-1">Drop your AI-styled image here</p>
+        <p class="font-semibold text-base mb-1">Drop, click, or paste your AI-styled image here</p>
         <p class="text-xs" style="color: var(--text-muted);">JPG · PNG · WEBP · Max 5MB</p>
-        <p class="text-xs mt-2 italic" style="color: rgba(189, 209, 233, 0.6);">📷 Right-click any image in ChatGPT → "Save image as…"</p>
+        <p class="text-xs mt-3 italic" style="color: rgba(189, 209, 233, 0.65);">
+          ✨ <strong>NEW — Paste directly:</strong> Right-click image in ChatGPT/Gemini → "Copy Image" → return here → press <kbd style="background: rgba(10,186,181,0.2); padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(10,186,181,0.4); font-family: monospace;">Cmd+V</kbd> (or <kbd style="background: rgba(10,186,181,0.2); padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(10,186,181,0.4); font-family: monospace;">Ctrl+V</kbd>)
+        </p>
+        <p class="text-xs mt-1 italic" style="color: rgba(189, 209, 233, 0.5);">📷 Or save image to your device and drag here</p>
       </div>
       <div id="afterDropzoneFilled" class="hidden">
         <p class="font-semibold text-sm mb-1" id="afterPhotoName">styled-result.png</p>
@@ -994,6 +1007,7 @@ const state = {
   vibes: new Set(),
   layouts: new Set(["Editorial Collage"]),
   selectedHairstyle: null,
+  customHairText: "",
   lastTryOnResult: null,
 };
 
@@ -1075,10 +1089,29 @@ HAIRSTYLES_LIB.forEach(h => {
   card.innerHTML = `<div class="text-2xl mb-2">${h.emoji}</div><div class="font-semibold text-sm">${h.name}</div><div class="text-[11px] mt-0.5" style="color: var(--text-muted);">${h.desc}</div>`;
   card.addEventListener("click", () => {
     state.selectedHairstyle = h.id;
+    state.customHairText = "";
+    document.getElementById("customHairInput").value = "";
     document.querySelectorAll(".hairstyle-card").forEach(c => c.classList.toggle("on", c.dataset.id === h.id));
     updateTryOnState();
   });
   hairGrid.appendChild(card);
+});
+
+// CUSTOM HAIRSTYLE INPUT — typing here deselects any preset card
+const customHairInput = document.getElementById("customHairInput");
+customHairInput.addEventListener("input", (e) => {
+  const text = e.target.value.trim();
+  if (text.length > 0) {
+    state.selectedHairstyle = "custom";
+    state.customHairText = text;
+    document.querySelectorAll(".hairstyle-card").forEach(c => c.classList.remove("on"));
+  } else {
+    if (state.selectedHairstyle === "custom") {
+      state.selectedHairstyle = null;
+      state.customHairText = "";
+    }
+  }
+  updateTryOnState();
 });
 
 // PHOTO UPLOAD (BEFORE)
@@ -1127,14 +1160,42 @@ function handleAfterFile(file) {
   if (file.size > 5*1024*1024) { err.textContent = "Image larger than 5MB."; err.classList.remove("hidden"); return; }
   const r = new FileReader();
   r.onload = e => {
-    state.afterPhoto = { name: file.name, size: file.size, dataUrl: e.target.result };
-    document.getElementById("afterPhotoName").textContent = file.name;
+    state.afterPhoto = { name: file.name || "pasted-image.png", size: file.size, dataUrl: e.target.result };
+    document.getElementById("afterPhotoName").textContent = file.name || "pasted-image.png";
     document.getElementById("afterDropzoneEmpty").classList.add("hidden");
     document.getElementById("afterDropzoneFilled").classList.remove("hidden");
     showCgReveal();
   };
   r.readAsDataURL(file);
 }
+
+// PASTE SUPPORT — press Cmd+V or Ctrl+V anywhere on the page to paste a copied image
+document.addEventListener("paste", async (e) => {
+  // Ignore paste events when user is typing in input/textarea
+  const target = e.target;
+  if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
+
+  const items = (e.clipboardData || window.clipboardData)?.items;
+  if (!items) return;
+
+  for (const item of items) {
+    if (item.type && item.type.startsWith("image/")) {
+      e.preventDefault();
+      const blob = item.getAsFile();
+      if (blob) {
+        // Show a brief visual flash on the dropzone so the user knows it worked
+        const dz = document.getElementById("afterDropzone");
+        if (dz) {
+          dz.classList.add("dragging");
+          setTimeout(() => dz.classList.remove("dragging"), 600);
+          dz.scrollIntoView({behavior:"smooth", block:"center"});
+        }
+        handleAfterFile(blob);
+      }
+      return;
+    }
+  }
+});
 function showCgReveal() {
   if (state.photo && state.afterPhoto) {
     document.getElementById("cgRevealBefore").src = state.photo.dataUrl;
@@ -1201,13 +1262,18 @@ function renderSwapCounter() {
   else el.innerHTML = `<span style="color: #fca5a5;">No try-ons left</span> · <a href="#pricing" class="underline">upgrade</a>`;
 }
 function updateTryOnState() {
-  const ready = state.photo && state.selectedHairstyle;
+  const isCustom = state.selectedHairstyle === "custom";
+  const customValid = isCustom && state.customHairText.trim().length >= 3;
+  const presetValid = state.selectedHairstyle && state.selectedHairstyle !== "custom";
+  const ready = state.photo && (presetValid || customValid);
   const btn = document.getElementById("tryOnBtn");
   const hint = document.getElementById("tryOnHint");
   btn.disabled = !ready;
-  if (!state.photo && !state.selectedHairstyle) hint.textContent = "Upload a photo and pick a hairstyle";
+  if (!state.photo && !state.selectedHairstyle) hint.textContent = "Upload a photo and pick or describe a hairstyle";
   else if (!state.photo) hint.textContent = "Upload a photo first";
-  else if (!state.selectedHairstyle) hint.textContent = "Pick a hairstyle";
+  else if (!state.selectedHairstyle) hint.textContent = "Pick a preset or describe your own hairstyle";
+  else if (isCustom && !customValid) hint.textContent = "Describe the hairstyle (at least 3 characters)";
+  else if (isCustom) hint.textContent = `Ready to try: ${state.customHairText.trim()}`;
   else { const h = HAIRSTYLES_LIB.find(x => x.id === state.selectedHairstyle); hint.textContent = `Ready to try: ${h.name}`; }
 }
 updateTryOnState();
@@ -1238,9 +1304,13 @@ async function generateTryOn() {
   const interval = setInterval(() => { i = (i+1) % messages.length; document.getElementById("loadingNote").textContent = messages[i]; }, 8000);
 
   try {
+    const requestBody = { photo: state.photo.dataUrl, hairstyle: state.selectedHairstyle };
+    if (state.selectedHairstyle === "custom") {
+      requestBody.customDescription = state.customHairText.trim();
+    }
     const resp = await fetch("/api/tryon", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ photo: state.photo.dataUrl, hairstyle: state.selectedHairstyle }),
+      body: JSON.stringify(requestBody),
     });
     clearInterval(interval); tryOnLoading.classList.add("hidden");
     const data = await resp.json();
