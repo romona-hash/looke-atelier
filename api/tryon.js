@@ -28,41 +28,51 @@
 // ---------- HAIRSTYLE LIBRARY ----------
 // Each entry has a "name" (what users see) and a "prompt" (what
 // the AI receives). Prompts are CAREFULLY crafted to:
-//   - Preserve the face/identity (critical)
-//   - Be specific about the cut, length, and texture
-//   - Specify lighting/realism so it doesn't look fake
+//   - PRESERVE IDENTITY (this is the #1 priority — must work)
+//   - Use specific terminology Flux Kontext responds to
+//   - Lead with identity preservation, then describe ONLY the change
+//   - Use explicit negative instructions ("do NOT modify")
+//
+// Why prompts are written this way:
+// Flux Kontext is an "edit this image" model. It tries to keep the
+// original whenever possible, but vague language gives it permission
+// to drift. Specific identity-locking language ("preserve exact
+// facial features," "do not modify face") tells it which regions to
+// freeze and which to edit. The phrase "ONLY change the hair" is
+// critical — it scopes the entire edit to a single region.
+//
 const HAIRSTYLES = {
   textured_pixie: {
     name: "Textured Pixie",
-    prompt: "Change the hairstyle to a short textured pixie cut with subtle layers and tousled volume on top. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Natural realistic hair texture appropriate to the subject's hair type. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a short textured pixie cut with subtle piecey layers and tousled volume on top. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   curly_tapered: {
     name: "Curly Tapered Cut",
-    prompt: "Change the hairstyle to a curly tapered cut: defined natural curls on top with shorter tapered sides. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Healthy moisturized curl definition. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a curly tapered cut with defined natural curls on top and shorter tapered sides. Healthy moisturized curl definition. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   wavy_pixie: {
     name: "Wavy Pixie",
-    prompt: "Change the hairstyle to a soft wavy pixie cut with feminine waves and movement. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Soft and bouncy texture. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a soft wavy pixie cut with gentle feminine waves and movement. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   layered_crop: {
     name: "Layered Crop",
-    prompt: "Change the hairstyle to a layered crop with bold modern layers and side sweep. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Edgy but polished. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a layered crop with bold modern layers and a sweeping side parting. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   sleek_bob: {
     name: "Sleek Bob",
-    prompt: "Change the hairstyle to a sleek straight chin-length bob with center parting. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Polished glossy finish. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a sleek straight chin-length bob with center parting and polished glossy finish. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   long_waves: {
     name: "Long Waves",
-    prompt: "Change the hairstyle to long flowing wavy hair past the shoulders with soft volume. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Healthy lustrous waves. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to long flowing wavy hair past the shoulders with healthy lustrous waves and soft volume. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   twist_out: {
     name: "Twist-Out",
-    prompt: "Change the hairstyle to a defined twist-out with springy coily texture and natural volume. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Healthy moisturized natural hair. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to a defined twist-out with springy coily texture, healthy moisture, and natural volume. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
   bantu_knots: {
     name: "Bantu Knots",
-    prompt: "Change the hairstyle to neat parted bantu knots arranged across the head. Keep the face, skin tone, eye color, facial features, and identity exactly the same. Clean defined parts. Studio portrait lighting. Photorealistic.",
+    prompt: "Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to neat parted bantu knots arranged in clean rows across the scalp. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.",
   },
 };
 
@@ -78,7 +88,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { photo, hairstyle } = req.body || {};
+    const { photo, hairstyle, customDescription } = req.body || {};
 
     // ---------- VALIDATION ----------
     if (!photo || typeof photo !== "string") {
@@ -87,11 +97,31 @@ export default async function handler(req, res) {
     if (!photo.startsWith("data:image/")) {
       return res.status(400).json({ error: "Photo must be a data URL." });
     }
-    if (!hairstyle || !HAIRSTYLES[hairstyle]) {
+
+    // Accept EITHER a preset hairstyle ID OR a custom description
+    const isCustom = hairstyle === "custom";
+    if (isCustom) {
+      if (!customDescription || typeof customDescription !== "string") {
+        return res.status(400).json({ error: "Custom description is required when using custom hairstyle." });
+      }
+      const trimmed = customDescription.trim();
+      if (trimmed.length < 3) {
+        return res.status(400).json({ error: "Please describe the hairstyle in more detail (at least 3 characters)." });
+      }
+      if (trimmed.length > 200) {
+        return res.status(400).json({ error: "Description too long. Please keep it under 200 characters." });
+      }
+      // Block obviously inappropriate inputs (basic safety filter)
+      const blocked = /\b(nude|naked|sexual|porn|nsfw|child|kid|minor|underage)\b/i;
+      if (blocked.test(trimmed)) {
+        return res.status(400).json({ error: "Your description contains content that can't be processed. Please describe a hairstyle only." });
+      }
+    } else if (!hairstyle || !HAIRSTYLES[hairstyle]) {
       return res.status(400).json({
-        error: "Invalid hairstyle. Choose one of: " + Object.keys(HAIRSTYLES).join(", "),
+        error: "Invalid hairstyle. Choose one of: " + Object.keys(HAIRSTYLES).join(", ") + ", or send hairstyle='custom' with a customDescription.",
       });
     }
+
     // Reject huge payloads (Vercel has a 4.5MB body limit by default,
     // and we cap our photos at ~5MB on the client side — but check here too)
     if (photo.length > 7_500_000) {
@@ -107,7 +137,16 @@ export default async function handler(req, res) {
       });
     }
 
-    const prompt = HAIRSTYLES[hairstyle].prompt;
+    // Build the prompt — preset uses pre-written prompt, custom builds from user description
+    let prompt, displayName;
+    if (isCustom) {
+      const userDesc = customDescription.trim();
+      prompt = `Preserve the exact identity, face, facial features, skin tone, skin texture, eye color, eye shape, eyebrows, nose, lips, jawline, ears, neck, and body of the person in the photo. Do NOT modify the face in any way. Do NOT change the person's appearance, age, or ethnicity. ONLY change the hairstyle to: ${userDesc}. Keep the original photo's lighting, background, clothing, and pose exactly as they are. Photorealistic.`;
+      displayName = userDesc.charAt(0).toUpperCase() + userDesc.slice(1);
+    } else {
+      prompt = HAIRSTYLES[hairstyle].prompt;
+      displayName = HAIRSTYLES[hairstyle].name;
+    }
 
     // ---------- CALL REPLICATE ----------
     //
@@ -129,12 +168,20 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         // Flux Kontext Pro by Black Forest Labs
+        // Tuned parameters for maximum identity preservation:
+        //   - prompt_upsampling: false  → don't let the model "creatively
+        //     interpret" the prompt; use it literally
+        //   - aspect_ratio: "match_input_image" → keep the original photo's
+        //     composition exactly
+        //   - safety_tolerance: 2  → strict, conservative edits
         version: "black-forest-labs/flux-kontext-pro",
         input: {
           prompt: prompt,
           input_image: photo,
           output_format: "jpg",
           safety_tolerance: 2,
+          prompt_upsampling: false,
+          aspect_ratio: "match_input_image",
         },
       }),
     });
@@ -190,7 +237,7 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         imageUrl: imageUrl,
-        hairstyleName: HAIRSTYLES[hairstyle].name,
+        hairstyleName: displayName,
       });
     }
 
